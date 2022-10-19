@@ -8,37 +8,37 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Employee_details_webapp
 build_property.RootNamespace = Employee_details_webapp
-build_property.ProjectDir = D:\Projects\.net\Project_Ekbana\Employee_details_webapp\Employee_details_webapp\Employee_details_webapp\
+build_property.ProjectDir = D:\Projects\.net\Project_Ekbana\New folder\Employee_details_webapp\Employee_details_webapp\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\Projects\.net\Project_Ekbana\Employee_details_webapp\Employee_details_webapp\Employee_details_webapp
+build_property.MSBuildProjectDirectory = D:\Projects\.net\Project_Ekbana\New folder\Employee_details_webapp\Employee_details_webapp
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/Projects/.net/Project_Ekbana/Employee_details_webapp/Employee_details_webapp/Employee_details_webapp/Pages/Error.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+[D:/Projects/.net/Project_Ekbana/New folder/Employee_details_webapp/Employee_details_webapp/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Projects/.net/Project_Ekbana/Employee_details_webapp/Employee_details_webapp/Employee_details_webapp/Pages/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
+[D:/Projects/.net/Project_Ekbana/New folder/Employee_details_webapp/Employee_details_webapp/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Projects/.net/Project_Ekbana/Employee_details_webapp/Employee_details_webapp/Employee_details_webapp/Pages/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
+[D:/Projects/.net/Project_Ekbana/New folder/Employee_details_webapp/Employee_details_webapp/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Projects/.net/Project_Ekbana/Employee_details_webapp/Employee_details_webapp/Employee_details_webapp/Pages/Shared/_ValidationScriptsPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+[D:/Projects/.net/Project_Ekbana/New folder/Employee_details_webapp/Employee_details_webapp/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Projects/.net/Project_Ekbana/Employee_details_webapp/Employee_details_webapp/Employee_details_webapp/Pages/_ViewImports.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+[D:/Projects/.net/Project_Ekbana/New folder/Employee_details_webapp/Employee_details_webapp/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Projects/.net/Project_Ekbana/Employee_details_webapp/Employee_details_webapp/Employee_details_webapp/Pages/_ViewStart.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+[D:/Projects/.net/Project_Ekbana/New folder/Employee_details_webapp/Employee_details_webapp/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Projects/.net/Project_Ekbana/Employee_details_webapp/Employee_details_webapp/Employee_details_webapp/Pages/Shared/_Layout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = b-lkdvkkymcp
+[D:/Projects/.net/Project_Ekbana/New folder/Employee_details_webapp/Employee_details_webapp/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-v4vjzpvvxz

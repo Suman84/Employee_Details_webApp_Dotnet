@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\.net\\Project_Ekbana\\Employee_details_webapp\\Employee_details_webapp\\DomainLayer\\DomainLayer.csproj": {}
+    "D:\\Projects\\.net\\Project_Ekbana\\New folder\\Employee_details_webapp\\DomainLayer\\DomainLayer.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\.net\\Project_Ekbana\\Employee_details_webapp\\Employee_details_webapp\\DomainLayer\\DomainLayer.csproj": {
+    "D:\\Projects\\.net\\Project_Ekbana\\New folder\\Employee_details_webapp\\DomainLayer\\DomainLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\.net\\Project_Ekbana\\Employee_details_webapp\\Employee_details_webapp\\DomainLayer\\DomainLayer.csproj",
+        "projectUniqueName": "D:\\Projects\\.net\\Project_Ekbana\\New folder\\Employee_details_webapp\\DomainLayer\\DomainLayer.csproj",
         "projectName": "DomainLayer",
-        "projectPath": "D:\\Projects\\.net\\Project_Ekbana\\Employee_details_webapp\\Employee_details_webapp\\DomainLayer\\DomainLayer.csproj",
+        "projectPath": "D:\\Projects\\.net\\Project_Ekbana\\New folder\\Employee_details_webapp\\DomainLayer\\DomainLayer.csproj",
         "packagesPath": "C:\\Users\\dell\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\.net\\Project_Ekbana\\Employee_details_webapp\\Employee_details_webapp\\DomainLayer\\obj\\",
+        "outputPath": "D:\\Projects\\.net\\Project_Ekbana\\New folder\\Employee_details_webapp\\DomainLayer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\dell\\AppData\\Roaming\\NuGet\\NuGet.Config",

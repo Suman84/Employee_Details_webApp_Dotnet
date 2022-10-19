@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace DomainLayer.Models
 {
     public class People
     {
+        [Key]
         public int Personid { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
