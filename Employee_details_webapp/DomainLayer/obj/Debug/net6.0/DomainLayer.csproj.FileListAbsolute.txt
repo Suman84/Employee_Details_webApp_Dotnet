@@ -1,0 +1,12 @@
+D:\Projects\.net\Project_Ekbana\Employee_details_webapp\Employee_details_webapp\DomainLayer\bin\Debug\net6.0\DomainLayer.deps.json
+D:\Projects\.net\Project_Ekbana\Employee_details_webapp\Employee_details_webapp\DomainLayer\bin\Debug\net6.0\DomainLayer.dll
+D:\Projects\.net\Project_Ekbana\Employee_details_webapp\Employee_details_webapp\DomainLayer\bin\Debug\net6.0\DomainLayer.pdb
+D:\Projects\.net\Project_Ekbana\Employee_details_webapp\Employee_details_webapp\DomainLayer\obj\Debug\net6.0\DomainLayer.csproj.AssemblyReference.cache
+D:\Projects\.net\Project_Ekbana\Employee_details_webapp\Employee_details_webapp\DomainLayer\obj\Debug\net6.0\DomainLayer.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\.net\Project_Ekbana\Employee_details_webapp\Employee_details_webapp\DomainLayer\obj\Debug\net6.0\DomainLayer.AssemblyInfoInputs.cache
+D:\Projects\.net\Project_Ekbana\Employee_details_webapp\Employee_details_webapp\DomainLayer\obj\Debug\net6.0\DomainLayer.AssemblyInfo.cs
+D:\Projects\.net\Project_Ekbana\Employee_details_webapp\Employee_details_webapp\DomainLayer\obj\Debug\net6.0\DomainLayer.csproj.CoreCompileInputs.cache
+D:\Projects\.net\Project_Ekbana\Employee_details_webapp\Employee_details_webapp\DomainLayer\obj\Debug\net6.0\DomainLayer.dll
+D:\Projects\.net\Project_Ekbana\Employee_details_webapp\Employee_details_webapp\DomainLayer\obj\Debug\net6.0\refint\DomainLayer.dll
+D:\Projects\.net\Project_Ekbana\Employee_details_webapp\Employee_details_webapp\DomainLayer\obj\Debug\net6.0\DomainLayer.pdb
+D:\Projects\.net\Project_Ekbana\Employee_details_webapp\Employee_details_webapp\DomainLayer\obj\Debug\net6.0\ref\DomainLayer.dll
