@@ -1,0 +1,34 @@
+﻿@model List<DomainLayer.Models.Employees>
+@{
+}
+
+<h1> Leads</h1>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Address</th>
+			<th>Phone number</th>
+			<th>Customer Type</th>
+			<th>Date of birth</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach(var Employees in Model)
+		{
+			
+				<tr>
+				<td>@Employees.Employeeid</td>
+				<td>@Employees.EmployeeCode</td>
+				<td>@Employees.Salary</td>
+				<td>@Employees.StartDate</td>
+				<td>@Employees.EndDate</td>
+				</tr>
+			
+		}
+	</tbody>
+</table>

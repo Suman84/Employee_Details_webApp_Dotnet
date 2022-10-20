@@ -10,7 +10,7 @@ using RepositoryLayer.RepositoryPattern.Interfaces;
 
 namespace RepositoryLayer.RepositoryPattern
 {
-    public class EmployeeJobHistoryRepository<T> : IEmployeeJobHistoryRepository<T> where T:People
+    public class EmployeeJobHistoryRepository<T> : IEmployeeJobHistoryRepository<T> where T:EmployeeJobHistories
     {
         #region property
         private readonly EmployeeDbContext _employeeDbContext;
@@ -28,7 +28,7 @@ namespace RepositoryLayer.RepositoryPattern
 
         public T Get(int Id)
         {
-            return entities.SingleOrDefault(c => c.Personid == Id);
+            return entities.SingleOrDefault(c => c.EmployeeJobHistoryid == Id);
         }
 
         public IEnumerable<T> GetAll()

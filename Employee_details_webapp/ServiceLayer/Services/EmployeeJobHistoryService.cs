@@ -12,11 +12,11 @@ namespace ServiceLayer.Services
     public class EmployeeJobHistoryService : IEmployeeJobHistoryService
     {
         #region Property
-        private IPeopleRepository<EmployeeJobHistories> _repository;
+        private IEmployeeJobHistoryRepository<EmployeeJobHistories> _repository;
         #endregion
 
         #region Constructor
-        public EmployeeJobHistoryService(IPeopleRepository<EmployeeJobHistories> repository)
+        public EmployeeJobHistoryService(IEmployeeJobHistoryRepository<EmployeeJobHistories> repository)
         {
             _repository = repository;
         }

@@ -1,6 +1,10 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using RepositoryLayer.DataAccess;
+using RepositoryLayer.RepositoryPattern.Interfaces;
+using RepositoryLayer.RepositoryPattern;
+using ServiceLayer.Interfaces;
+using ServiceLayer.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +13,19 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<EmployeeDbContext>(options =>
 options.UseNpgsql(builder.Configuration.GetConnectionString("WebAppConnectionString")));
+
+builder.Services.AddScoped(typeof(IEmployeeJobHistoryRepository<>), typeof(EmployeeJobHistoryRepository<>));
+builder.Services.AddTransient<IEmployeeJobHistoryService, EmployeeJobHistoryService>();
+
+builder.Services.AddScoped(typeof(IEmployeeRepository<>), typeof(EmployeeRepository<>));
+builder.Services.AddTransient<IEmployeeService, EmployeeService>();
+
+builder.Services.AddScoped(typeof(IPeopleRepository<>), typeof(PeopleRepository<>));
+builder.Services.AddTransient<IPeopleService, PeopleService>();
+
+builder.Services.AddScoped(typeof(IPositionRepository<>), typeof(PositionRepository<>));
+builder.Services.AddTransient<IPositionService, PositionService>();
+
 
 var app = builder.Build();
 
