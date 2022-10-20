@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DomainLayer.Models;
 using Microsoft.EntityFrameworkCore;
 using RepositoryLayer.DataAccess;
+using RepositoryLayer.RepositoryPattern.Interfaces;
 
 namespace RepositoryLayer.RepositoryPattern
 {

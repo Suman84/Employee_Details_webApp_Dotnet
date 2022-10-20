@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RepositoryLayer.RepositoryPattern
+namespace RepositoryLayer.RepositoryPattern.Interfaces
 {
-    public interface IPeopleRepository<T>
+    public interface IEmployeeJobHistoryRepository<T>
     {
         IEnumerable<T> GetAll();
         T Get(int Id);

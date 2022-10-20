@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DomainLayer.Models;
 
-namespace ServiceLayer.Services
+namespace ServiceLayer.Interfaces
 {
     public interface IPeopleService
     {
