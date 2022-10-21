@@ -10,10 +10,10 @@ namespace ServiceLayer.Interfaces
     public interface IEmployeeJobHistoryService
     {
         IEnumerable<EmployeeJobHistories> GetAllEmployeeJobHistories();
-        EmployeeJobHistories GetEmployeeJobHistory(int id);
+        EmployeeJobHistories GetEmployeeJobHistory(Guid id);
         void InsertEmployeeJobHistory(EmployeeJobHistories employeeJobHistory);
         void UpdateEmployeeJobHistory(EmployeeJobHistories employeeJobHistory);
-        void DeleteEmployeeJobHistory(int id);
+        void DeleteEmployeeJobHistory(Guid id);
 
     }
 }

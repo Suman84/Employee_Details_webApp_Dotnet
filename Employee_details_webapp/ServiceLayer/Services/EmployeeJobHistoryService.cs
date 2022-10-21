@@ -27,7 +27,7 @@ namespace ServiceLayer.Services
             return _repository.GetAll();
         }
 
-        public EmployeeJobHistories GetEmployeeJobHistory(int id)
+        public EmployeeJobHistories GetEmployeeJobHistory(Guid id)
         {
             return _repository.Get(id);
         }
@@ -41,7 +41,7 @@ namespace ServiceLayer.Services
             _repository.Update(employeeJobHistory);
         }
 
-        public void DeleteEmployeeJobHistory(int id)
+        public void DeleteEmployeeJobHistory(Guid id)
         {
             EmployeeJobHistories employeeJobHistory = GetEmployeeJobHistory(id);
             _repository.Delete(employeeJobHistory);

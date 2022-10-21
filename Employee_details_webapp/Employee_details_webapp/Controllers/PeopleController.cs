@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DomainLayer.Models;
+using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Interfaces;
+using ServiceLayer.Services;
 
 namespace Employee_details_webapp.Controllers
 {
@@ -17,18 +19,28 @@ namespace Employee_details_webapp.Controllers
         {
             return View();
         }
-
+        [HttpGet]
         public IActionResult AllPeopleList()
         {
             var data = _peopleService.GetAllPeople().ToList();
             return View(data);
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult AddPeople()
         {
-
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddPeople(People people)
+        {
+            if (people != null)
+            {
+                _peopleService.InsertPeople(people);
+                return RedirectToAction("Error");
+            }
+            return RedirectToAction("Error");
         }
     }
 }

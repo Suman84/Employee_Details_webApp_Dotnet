@@ -10,8 +10,8 @@ namespace DomainLayer.Models
     public class Positions
     {
         [Key]
-        public int Positionid { get; set; }
-        public string PositionName { get; set; }
+        public Guid Positionid { get; set; }
+        public string? PositionName { get; set; }
 
     }
 }

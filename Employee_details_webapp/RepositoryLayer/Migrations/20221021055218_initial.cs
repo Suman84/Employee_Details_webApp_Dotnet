@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -14,13 +13,12 @@ namespace RepositoryLayer.Migrations
                 name: "Peoples",
                 columns: table => new
                 {
-                    Personid = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    FirstName = table.Column<string>(type: "text", nullable: false),
-                    MiddleName = table.Column<string>(type: "text", nullable: false),
-                    LastName = table.Column<string>(type: "text", nullable: false),
-                    Address = table.Column<string>(type: "text", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false)
+                    Personid = table.Column<Guid>(type: "uuid", nullable: false),
+                    FirstName = table.Column<string>(type: "text", nullable: true),
+                    MiddleName = table.Column<string>(type: "text", nullable: true),
+                    LastName = table.Column<string>(type: "text", nullable: true),
+                    Address = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -31,9 +29,8 @@ namespace RepositoryLayer.Migrations
                 name: "Positions",
                 columns: table => new
                 {
-                    Positionid = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    PositionName = table.Column<string>(type: "text", nullable: false)
+                    Positionid = table.Column<Guid>(type: "uuid", nullable: false),
+                    PositionName = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -44,30 +41,27 @@ namespace RepositoryLayer.Migrations
                 name: "Employees",
                 columns: table => new
                 {
-                    Employeeid = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Employeeid = table.Column<Guid>(type: "uuid", nullable: false),
                     Salary = table.Column<int>(type: "integer", nullable: false),
                     StartDate = table.Column<DateOnly>(type: "date", nullable: false),
                     EndDate = table.Column<DateOnly>(type: "date", nullable: false),
                     EmployeeCode = table.Column<int>(type: "integer", nullable: false),
                     ISDisabled = table.Column<bool>(type: "boolean", nullable: false),
-                    Personid = table.Column<int>(type: "integer", nullable: false),
-                    Positionid = table.Column<int>(type: "integer", nullable: false),
-                    PersonID = table.Column<int>(type: "integer", nullable: false),
-                    PositionID = table.Column<int>(type: "integer", nullable: false)
+                    Personid = table.Column<Guid>(type: "uuid", nullable: false),
+                    Positionid = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Employees", x => x.Employeeid);
                     table.ForeignKey(
-                        name: "FK_Employees_Peoples_PersonID",
-                        column: x => x.PersonID,
+                        name: "FK_Employees_Peoples_Personid",
+                        column: x => x.Personid,
                         principalTable: "Peoples",
                         principalColumn: "Personid",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Employees_Positions_PositionID",
-                        column: x => x.PositionID,
+                        name: "FK_Employees_Positions_Positionid",
+                        column: x => x.Positionid,
                         principalTable: "Positions",
                         principalColumn: "Positionid",
                         onDelete: ReferentialAction.Cascade);
@@ -77,13 +71,11 @@ namespace RepositoryLayer.Migrations
                 name: "EmployeeJobHistories",
                 columns: table => new
                 {
-                    EmployeeJobHistoryid = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    EmployeeJobHistoryid = table.Column<Guid>(type: "uuid", nullable: false),
                     StartDate = table.Column<DateOnly>(type: "date", nullable: false),
                     EndDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    Employeeid = table.Column<int>(type: "integer", nullable: false),
-                    Positionid = table.Column<int>(type: "integer", nullable: false),
-                    PositionID = table.Column<int>(type: "integer", nullable: false)
+                    Employeeid = table.Column<Guid>(type: "uuid", nullable: false),
+                    Positionid = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -95,8 +87,8 @@ namespace RepositoryLayer.Migrations
                         principalColumn: "Employeeid",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_EmployeeJobHistories_Positions_PositionID",
-                        column: x => x.PositionID,
+                        name: "FK_EmployeeJobHistories_Positions_Positionid",
+                        column: x => x.Positionid,
                         principalTable: "Positions",
                         principalColumn: "Positionid",
                         onDelete: ReferentialAction.Cascade);
@@ -108,19 +100,19 @@ namespace RepositoryLayer.Migrations
                 column: "Employeeid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmployeeJobHistories_PositionID",
+                name: "IX_EmployeeJobHistories_Positionid",
                 table: "EmployeeJobHistories",
-                column: "PositionID");
+                column: "Positionid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employees_PersonID",
+                name: "IX_Employees_Personid",
                 table: "Employees",
-                column: "PersonID");
+                column: "Personid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employees_PositionID",
+                name: "IX_Employees_Positionid",
                 table: "Employees",
-                column: "PositionID");
+                column: "Positionid");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

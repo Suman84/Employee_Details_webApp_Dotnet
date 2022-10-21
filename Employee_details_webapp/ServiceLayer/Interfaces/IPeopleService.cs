@@ -10,10 +10,10 @@ namespace ServiceLayer.Interfaces
     public interface IPeopleService
     {
         IEnumerable<People> GetAllPeople();
-        People GetPeople(int id);
+        People GetPeople(Guid id);
         void InsertPeople(People people);
         void UpdatePeople(People people);
-        void DeletePeople(int id);
+        void DeletePeople(Guid id);
 
     }
 }

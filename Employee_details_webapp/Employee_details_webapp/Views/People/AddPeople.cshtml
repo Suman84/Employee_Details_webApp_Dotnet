@@ -1,0 +1,28 @@
+﻿@model DomainLayer.Models.People
+<h1>Add employee:</h1>
+
+<form method="post" action="AddPeople" id="employeeform">
+    <div class="mb-3">
+        <label asp-for="FirstName" class="form-label">FirstName</label>
+        <input type="text" class="form-control" asp-for="FirstName">
+    </div>
+    <div class="mb-3">
+            <label asp-for="MiddleName" class="form-label">MiddleName</label>
+            <input type="text" class="form-control" asp-for="MiddleName">
+    </div>
+    <div class="mb-3">
+        <label asp-for="LastName" class="form-label">LastName</label>
+            <input type="text" class="form-control" asp-for="LastName">
+    </div>
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label">Email</label>
+        <input type="email" class="form-control" asp-for="Email">
+    </div>
+        <div class="mb-3">
+        <label asp-for="Address" class="form-label">Address</label>
+        <input type="text" class="form-control" asp-for="Address">
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>

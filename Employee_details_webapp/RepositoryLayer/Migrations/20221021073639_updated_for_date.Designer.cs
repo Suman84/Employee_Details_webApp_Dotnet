@@ -12,8 +12,8 @@ using RepositoryLayer.DataAccess;
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(EmployeeDbContext))]
-    [Migration("20221019065955_initial")]
-    partial class initial
+    [Migration("20221021073639_updated_for_date")]
+    partial class updated_for_date
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,23 +26,18 @@ namespace RepositoryLayer.Migrations
 
             modelBuilder.Entity("DomainLayer.Models.EmployeeJobHistories", b =>
                 {
-                    b.Property<int>("EmployeeJobHistoryid")
+                    b.Property<Guid>("EmployeeJobHistoryid")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("uuid");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("EmployeeJobHistoryid"));
-
-                    b.Property<int>("Employeeid")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("Employeeid")
+                        .HasColumnType("uuid");
 
                     b.Property<DateOnly>("EndDate")
                         .HasColumnType("date");
 
-                    b.Property<int>("PositionID")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Positionid")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("Positionid")
+                        .HasColumnType("uuid");
 
                     b.Property<DateOnly>("StartDate")
                         .HasColumnType("date");
@@ -51,18 +46,16 @@ namespace RepositoryLayer.Migrations
 
                     b.HasIndex("Employeeid");
 
-                    b.HasIndex("PositionID");
+                    b.HasIndex("Positionid");
 
                     b.ToTable("EmployeeJobHistories");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.Employees", b =>
                 {
-                    b.Property<int>("Employeeid")
+                    b.Property<Guid>("Employeeid")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Employeeid"));
+                        .HasColumnType("uuid");
 
                     b.Property<int>("EmployeeCode")
                         .HasColumnType("integer");
@@ -73,17 +66,11 @@ namespace RepositoryLayer.Migrations
                     b.Property<bool>("ISDisabled")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("PersonID")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("Personid")
+                        .HasColumnType("uuid");
 
-                    b.Property<int>("Personid")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PositionID")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Positionid")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("Positionid")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Salary")
                         .HasColumnType("integer");
@@ -93,39 +80,32 @@ namespace RepositoryLayer.Migrations
 
                     b.HasKey("Employeeid");
 
-                    b.HasIndex("PersonID");
+                    b.HasIndex("Personid");
 
-                    b.HasIndex("PositionID");
+                    b.HasIndex("Positionid");
 
                     b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.People", b =>
                 {
-                    b.Property<int>("Personid")
+                    b.Property<Guid>("Personid")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Personid"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("MiddleName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Personid");
@@ -135,14 +115,11 @@ namespace RepositoryLayer.Migrations
 
             modelBuilder.Entity("DomainLayer.Models.Positions", b =>
                 {
-                    b.Property<int>("Positionid")
+                    b.Property<Guid>("Positionid")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Positionid"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("PositionName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Positionid");
@@ -160,7 +137,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasOne("DomainLayer.Models.Positions", "positions")
                         .WithMany()
-                        .HasForeignKey("PositionID")
+                        .HasForeignKey("Positionid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -173,13 +150,13 @@ namespace RepositoryLayer.Migrations
                 {
                     b.HasOne("DomainLayer.Models.People", "people")
                         .WithMany()
-                        .HasForeignKey("PersonID")
+                        .HasForeignKey("Personid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DomainLayer.Models.Positions", "positions")
                         .WithMany()
-                        .HasForeignKey("PositionID")
+                        .HasForeignKey("Positionid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

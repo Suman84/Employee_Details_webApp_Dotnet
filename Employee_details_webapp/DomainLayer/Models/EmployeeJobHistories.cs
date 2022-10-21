@@ -11,17 +11,17 @@ namespace DomainLayer.Models
     public class EmployeeJobHistories
     {
         [Key]
-        public int EmployeeJobHistoryid { get; set; }
+        public Guid EmployeeJobHistoryid { get; set; }
         public DateOnly StartDate { get; set; } = new DateOnly();
         public DateOnly EndDate { get; set; } = new DateOnly();
 
-        public int Employeeid { get; set; }
-        public int Positionid { get; set; }
+        public Guid Employeeid { get; set; }
+        public Guid Positionid { get; set; }
 
         [ForeignKey("Employeeid")]
         public Employees employees { get; set; }
 
-        [ForeignKey("PositionID")]
+        [ForeignKey("Positionid")]
         public Positions positions { get; set; }
 
     }

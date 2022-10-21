@@ -26,9 +26,9 @@ namespace RepositoryLayer.RepositoryPattern
         #endregion
 
 
-        public T Get(int Id)
+        public T Get(Guid Id)
         {
-            return entities.SingleOrDefault(c => c.Personid == Id);
+            return entities.SingleOrDefault(c => c.Employeeid == Id);
         }
 
         public IEnumerable<T> GetAll()

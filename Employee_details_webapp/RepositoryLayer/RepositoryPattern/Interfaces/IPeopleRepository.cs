@@ -9,7 +9,7 @@ namespace RepositoryLayer.RepositoryPattern.Interfaces
     public interface IPeopleRepository<T>
     {
         IEnumerable<T> GetAll();
-        T Get(int Id);
+        T Get(Guid Id);
         void Insert(T entity);
         void Update(T entity);
         void Delete(T entity);

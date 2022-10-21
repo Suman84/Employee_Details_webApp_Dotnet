@@ -10,10 +10,10 @@ namespace ServiceLayer.Interfaces
     public interface IPositionService
     {
         IEnumerable<Positions> GetAllPositions();
-        Positions GetPosition(int id);
+        Positions GetPosition(Guid id);
         void InsertPosition(Positions people);
         void UpdatePosition(Positions people);
-        void DeletePosition(int id);
+        void DeletePosition(Guid id);
 
     }
 }

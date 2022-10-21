@@ -1,7 +1,6 @@
-﻿@model List<DomainLayer.Models.Employees>
+﻿@model List<Employee_details_webapp.Models.CombinedViewModel>
 @{
 }
-
 <h1> Leads</h1>
 
 <table class="table">
@@ -20,7 +19,6 @@
 	<tbody>
 		@foreach(var Employees in Model)
 		{
-			
 				<tr>
 				<td>@Employees.Employeeid</td>
 				<td>@Employees.EmployeeCode</td>
@@ -28,7 +26,6 @@
 				<td>@Employees.StartDate</td>
 				<td>@Employees.EndDate</td>
 				</tr>
-			
 		}
 	</tbody>
 </table>

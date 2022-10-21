@@ -11,20 +11,20 @@ namespace DomainLayer.Models
     public class Employees
     {
         [Key]
-        public int Employeeid { get; set; }
-        public int Salary { get; set; }
-        public DateOnly StartDate { get; set; }
-        public DateOnly EndDate { get; set; }
-        public int EmployeeCode { get; set; }
-        public Boolean ISDisabled { get; set; }
+        public Guid Employeeid { get; set; }
+        public int Salary { get; set; } = 0;
+        public DateTime StartDate { get; set; } 
+        public DateTime EndDate { get; set; } 
+        public int EmployeeCode { get; set; } = 0;
+        public Boolean ISDisabled { get; set; } = false;
 
-        public int Personid { get; set; }
-        public int Positionid { get; set; }
+        public Guid Personid { get; set; }
+        public Guid Positionid { get; set; }
 
-        [ForeignKey("PersonID")]
+        [ForeignKey("Personid")]
         public People people { get; set; }
 
-        [ForeignKey("PositionID")]
+        [ForeignKey("Positionid")]
         public Positions positions { get; set; }
 
     }

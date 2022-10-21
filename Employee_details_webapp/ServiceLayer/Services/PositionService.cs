@@ -27,7 +27,7 @@ namespace ServiceLayer.Services
             return _repository.GetAll();
         }
 
-        public Positions GetPosition(int id)
+        public Positions GetPosition(Guid id)
         {
             return _repository.Get(id);
         }
@@ -41,7 +41,7 @@ namespace ServiceLayer.Services
             _repository.Update(positions);
         }
 
-        public void DeletePosition(int id)
+        public void DeletePosition(Guid id)
         {
             Positions positions = GetPosition(id);
             _repository.Delete(positions);

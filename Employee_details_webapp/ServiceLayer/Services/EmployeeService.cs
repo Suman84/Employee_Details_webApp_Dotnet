@@ -28,7 +28,7 @@ namespace ServiceLayer.Services
             return _repository.GetAll();
         }
 
-        public Employees GetEmployee(int id)
+        public Employees GetEmployee(Guid id)
         {
             return _repository.Get(id);
         }
@@ -42,7 +42,7 @@ namespace ServiceLayer.Services
             _repository.Update(employees);
         }
 
-        public void DeleteEmployee(int id)
+        public void DeleteEmployee(Guid id)
         {
             Employees employees = GetEmployee(id);
             _repository.Delete(employees);

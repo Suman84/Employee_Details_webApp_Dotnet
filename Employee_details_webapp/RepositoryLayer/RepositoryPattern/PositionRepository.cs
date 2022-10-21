@@ -25,7 +25,7 @@ namespace RepositoryLayer.RepositoryPattern
         }
         #endregion
 
-        public T Get(int Id)
+        public T Get(Guid Id)
         {
             return entities.SingleOrDefault(c => c.Positionid == Id);
         }

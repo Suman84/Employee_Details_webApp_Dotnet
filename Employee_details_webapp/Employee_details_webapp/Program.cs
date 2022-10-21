@@ -13,6 +13,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<EmployeeDbContext>(options =>
 options.UseNpgsql(builder.Configuration.GetConnectionString("WebAppConnectionString")));
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 builder.Services.AddScoped(typeof(IEmployeeJobHistoryRepository<>), typeof(EmployeeJobHistoryRepository<>));
 builder.Services.AddTransient<IEmployeeJobHistoryService, EmployeeJobHistoryService>();

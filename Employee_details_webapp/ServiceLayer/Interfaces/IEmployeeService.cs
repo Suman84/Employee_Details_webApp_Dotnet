@@ -10,10 +10,10 @@ namespace ServiceLayer.Interfaces
     public interface IEmployeeService
     {
         IEnumerable<Employees> GetAllEmployees();
-        Employees GetEmployee(int id);
+        Employees GetEmployee(Guid id);
         void InsertEmployee(Employees employees);
         void UpdateEmployee(Employees employees);
-        void DeleteEmployee(int id);
+        void DeleteEmployee(Guid id);
 
     }
 }
