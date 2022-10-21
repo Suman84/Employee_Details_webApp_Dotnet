@@ -1,18 +1,19 @@
 ﻿@model List<Employee_details_webapp.Models.CombinedViewModel>
 @{
 }
-<h1> Leads</h1>
+<h1> Employees</h1>
 
 <table class="table">
 	<thead>
 		<tr>
-			<th>ID</th>
-			<th>Name</th>
+			<th>Code</th>
+			<th>Full Name</th>
 			<th>Email</th>
 			<th>Address</th>
-			<th>Phone number</th>
-			<th>Customer Type</th>
-			<th>Date of birth</th>
+			<th>Salary</th>
+			<th>Position</th>
+			<th>Start Date</th>
+			<th>End Date</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -20,9 +21,12 @@
 		@foreach(var Employees in Model)
 		{
 				<tr>
-				<td>@Employees.Employeeid</td>
 				<td>@Employees.EmployeeCode</td>
+				<td>@Employees.FirstName @Employees.MiddleName @Employees.LastName</td>
+				<td>@Employees.Email</td>
+				<td>@Employees.Address</td>
 				<td>@Employees.Salary</td>
+				<td>@Employees.PositionName</td>
 				<td>@Employees.StartDate</td>
 				<td>@Employees.EndDate</td>
 				</tr>

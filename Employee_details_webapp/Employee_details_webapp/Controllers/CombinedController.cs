@@ -42,17 +42,19 @@ namespace Employee_details_webapp.Controllers
                 People people = _peopleService.GetPeople(employee.Personid);
                 Positions position = _positionService.GetPosition(employee.Positionid);
 
-                CombinedViewModel combinedViewModel = new CombinedViewModel()
+                CombinedViewModel combinedViewModel = new()
                 {
+                    
                     FirstName = people.FirstName,
                     MiddleName = people.MiddleName,
                     LastName = people.LastName,
                     Address = people.Address,
                     Email = people.Email,
+                    Employeeid = employee.Employeeid,
                     EmployeeCode = employee.EmployeeCode,
                     Salary = employee.Salary,
-                    StartDate = employee.StartDate,
-                    EndDate = employee.EndDate,
+                    StartDate = DateOnly.FromDateTime(employee.StartDate),
+                    EndDate = DateOnly.FromDateTime(employee.EndDate),
                     ISDisabled = employee.ISDisabled,
                     PositionName = position.PositionName
                 };

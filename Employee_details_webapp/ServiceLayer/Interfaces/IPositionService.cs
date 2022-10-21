@@ -11,8 +11,8 @@ namespace ServiceLayer.Interfaces
     {
         IEnumerable<Positions> GetAllPositions();
         Positions GetPosition(Guid id);
-        void InsertPosition(Positions people);
-        void UpdatePosition(Positions people);
+        void InsertPosition(Positions positions);
+        void UpdatePosition(Positions positions);
         void DeletePosition(Guid id);
 
     }

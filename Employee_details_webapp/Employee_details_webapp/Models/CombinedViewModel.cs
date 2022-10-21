@@ -14,8 +14,8 @@ namespace Employee_details_webapp.Models
 
         public Guid Employeeid { get; set; }
         public int Salary { get; set; } = 0;
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateOnly StartDate { get; set; }
+        public DateOnly EndDate { get; set; }
         public int EmployeeCode { get; set; } = 0;
         public Boolean ISDisabled { get; set; } = false;
         public Guid Personid { get; set; }
