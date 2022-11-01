@@ -1,4 +1,4 @@
-﻿@model List<DomainLayer.Models.EmployeeJobHistories>
+﻿@model List<EmployeeJobHistoriesModel>
 @{
 }
 <h2>View or Edit employees job histories!</h2>
@@ -11,20 +11,22 @@
 		<tr>
 			<th>Position Id</th>
 			<th>Employee Job History ID</th>
+			<th>Position Name</th>
 			<th>Start Date</th>
 			<th>End Date</th>
 			<th></th>
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (var Employees in Model)
+		@foreach (var history in Model)
 		{
 			<tr>
-				<td>@Employees.Positionid</td>
-				<td>@Employees.EmployeeJobHistoryid</td>
-				<td>@Employees.StartDate</td>
-				<td>@Employees.EndDate</td>
-				<td><a href="EditEmployee/@Employees.Employeeid">Edit</a></td>
+				<td>@history.Positionid</td>
+				<td>@history.EmployeeJobHistoryid</td>
+				<td>@history.PositionName</td>
+				<td>@history.StartDate</td>
+				<td>@history.EndDate</td>
+				<td><a href="EditEmployee/@history.Employeeid">Edit</a></td>
 			</tr>
 		}
 	</tbody>

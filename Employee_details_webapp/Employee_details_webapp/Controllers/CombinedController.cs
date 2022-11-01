@@ -1,6 +1,9 @@
-﻿using System.Reflection.Metadata;
+﻿using System;
+using System.Reflection.Metadata;
 using DomainLayer.Models;
 using Employee_details_webapp.Models;
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Interfaces;
 using ServiceLayer.Services;
@@ -14,13 +17,16 @@ namespace Employee_details_webapp.Controllers
         private readonly IPeopleService _peopleService;
         private readonly IEmployeeService _employeeService;
         private readonly IEmployeeJobHistoryService _employeeJobHistoryService;
+        private IValidator<AddViewModel> _validator;
 
-        public CombinedController(IPositionService positionService, IPeopleService peopleService,IEmployeeService employeeService, IEmployeeJobHistoryService employeeJobHistoryService)
+        public CombinedController(IPositionService positionService, IPeopleService peopleService, IEmployeeService employeeService, 
+            IEmployeeJobHistoryService employeeJobHistoryService, IValidator<AddViewModel> validator)
         {
             _positionService = positionService;
             _peopleService = peopleService;
             _employeeService = employeeService;
             _employeeJobHistoryService = employeeJobHistoryService;
+            _validator = validator;
         }
 
         public IActionResult Index()
@@ -72,6 +78,7 @@ namespace Employee_details_webapp.Controllers
         [HttpPost]
         public IActionResult AddEmployee(AddViewModel addRequest)
         {
+            ViewBag.positions = _positionService.GetAllPositions().ToList();
             var people = new People()
             {
                 Personid = Guid.NewGuid(),
@@ -81,9 +88,6 @@ namespace Employee_details_webapp.Controllers
                 Address = addRequest.Address,
                 Email = addRequest.Email
             };
-            _peopleService.InsertPeople(people);
-
-
             var employee = new Employees()
             {
                 Employeeid = Guid.NewGuid(),
@@ -94,8 +98,6 @@ namespace Employee_details_webapp.Controllers
                 Personid = people.Personid,
                 Positionid = addRequest.Positionid,
             };
-            _employeeService.InsertEmployee(employee);
-
             var employeeJobHistory = new EmployeeJobHistories()
             {
                 EmployeeJobHistoryid = Guid.NewGuid(),
@@ -104,9 +106,22 @@ namespace Employee_details_webapp.Controllers
                 StartDate = DateOnly.FromDateTime(employee.StartDate),
                 EndDate = DateOnly.FromDateTime(employee.EndDate)
             };
-            _employeeJobHistoryService.InsertEmployeeJobHistory(employeeJobHistory);
 
-            return RedirectToAction("AllEmployeesList");
+            ValidationResult result = _validator.Validate(addRequest);
+            if (result.IsValid)
+            {
+                _peopleService.InsertPeople(people);
+                _employeeService.InsertEmployee(employee);
+                _employeeJobHistoryService.InsertEmployeeJobHistory(employeeJobHistory);
+
+                return RedirectToAction("AllEmployeesList");
+            }
+            else
+            {
+                //return BadRequest(result.Errors.Select(s => s.ErrorMessage).ToList());
+                return View();
+            }
+
         }
 
         [HttpGet]
@@ -189,59 +204,31 @@ namespace Employee_details_webapp.Controllers
             var person = _peopleService.GetPeople(employee.Personid);
             ViewBag.fullname = person.FirstName +" "+ person.MiddleName +" "+ person.LastName;
 
-            var employeeJobHistoryList = new List<EmployeeJobHistories>();
+            var employeeJobHistoryList = new List<EmployeeJobHistoriesModel>();
             var tempEmployeeJobHistoryList = _employeeJobHistoryService.GetAllEmployeeJobHistories().ToList();
 
             tempEmployeeJobHistoryList.ForEach(employeeJobHistory =>
             {
                 if(employeeJobHistory.Employeeid == Id)
                 {
-                    employeeJobHistoryList.Add(employeeJobHistory);
+                    var tempPosition = _positionService.GetPosition(employeeJobHistory.Positionid);
+                   
+                    EmployeeJobHistoriesModel employeeJobHistoryModel = new()
+                    {
+                        EmployeeJobHistoryid = employeeJobHistory.EmployeeJobHistoryid,
+                        Employeeid = employeeJobHistory.Employeeid,
+                        Positionid = employeeJobHistory.Positionid,
+                        StartDate = employeeJobHistory.StartDate,
+                        EndDate = employeeJobHistory.EndDate,
+                        PositionName = tempPosition.PositionName,
+                    };
+
+                    employeeJobHistoryList.Add(employeeJobHistoryModel);
                 }
             });
             return View(employeeJobHistoryList);
 
         }
 
-        [HttpGet]
-        public IActionResult EmployeeJobHistory(Guid Id)
-        {
-            var employee = _employeeService.GetEmployee(Id);
-            //var employeeJobHistory = _employeeJobHistoryService.GetEmployeeJobHistory(Id);
-            var person = _peopleService.GetPeople(employee.Personid);
-            var position = _positionService.GetPosition(employee.Positionid);
-            //ViewBag.positions = _positionService.GetAllPositions().ToList();
-            ViewBag.employeeJobHistory = _employeeJobHistoryService.GetAllEmployeeJobHistories().ToList();
-
-
-            var employeeJobHistoryModel = new EmployeeJobHistoriesModel()
-            {
-                EmployeeJobHistoryid = Id,
-                Employeeid = employee.Employeeid,
-                Positionid = employee.Positionid,
-                StartDate = DateOnly.FromDateTime(employee.StartDate),
-                EndDate = DateOnly.FromDateTime(employee.EndDate)
-
-            };
-
-            return View();
-
-            var editViewModel = new EditViewModel()
-            {
-                Personid = employee.Personid,
-                Employeeid = employee.Employeeid,
-                Positionid = employee.Positionid,
-                FirstName = person.FirstName,
-                MiddleName = person.MiddleName,
-                LastName = person.LastName,
-                Email = person.Email,
-                Address = person.Address,
-                Salary = employee.Salary,
-                EmployeeCode = employee.EmployeeCode,
-                StartDate = employee.StartDate,
-                EndDate = employee.EndDate
-            };
-            return View(editViewModel);
-        }
     }
 }

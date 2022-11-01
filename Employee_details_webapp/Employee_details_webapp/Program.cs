@@ -7,6 +7,8 @@ using ServiceLayer.Interfaces;
 using ServiceLayer.Services;
 using FluentValidation.AspNetCore;
 using Employee_details_webapp.Models.Validators;
+using FluentValidation;
+using Employee_details_webapp.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +39,7 @@ builder.Services.AddTransient<IPeopleService, PeopleService>();
 builder.Services.AddScoped(typeof(IPositionRepository<>), typeof(PositionRepository<>));
 builder.Services.AddTransient<IPositionService, PositionService>();
 
+builder.Services.AddScoped<IValidator<AddViewModel>, EmployeeValidator>();
 
 var app = builder.Build();
 

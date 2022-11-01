@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DomainLayer.Models;
 using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Employee_details_webapp.Models.Validators
 {
@@ -12,10 +13,38 @@ namespace Employee_details_webapp.Models.Validators
     {
         public EmployeeValidator()
         {
-            RuleFor(p => p.FirstName).NotEmpty().WithMessage("Customer Name should be string").Matches("^[a-zA-Z]+$").WithMessage("Customer Name should be string");
-            RuleFor(p => p.Email).EmailAddress().WithMessage("Email must in in email format");
-            RuleFor(p => p.Address).NotEmpty().WithMessage("Address is required.");
-            RuleFor(p => p.StartDate).NotEmpty().WithMessage("Date of birth is required");
+            RuleFor(p => p.FirstName).NotEmpty()
+                .WithMessage("First Name cannot be empty")
+                .Matches("^[a-zA-Z]+$")
+                .WithMessage("First Name can only contain letters");
+
+            RuleFor(p => p.MiddleName).Matches("^[a-zA-Z]+$")
+                .WithMessage("Middle Name can only contain letters");
+
+            RuleFor(p => p.LastName).NotEmpty()
+                .WithMessage("Last Name cannot be empty")
+                .Matches("^[a-zA-Z]+$")
+                .WithMessage("Last Name can only contain letters");
+
+            RuleFor(p => p.Email).NotEmpty()
+                .WithMessage("Email cannot be empty")
+                .EmailAddress()
+                .WithMessage("Email must in in email format");
+
+            RuleFor(p => p.Address).NotEmpty()
+                .WithMessage("Address cannot be empty.");
+
+            RuleFor(p => p.Salary).NotEmpty()
+                .WithMessage("Salary cannot be empty.");
+
+            RuleFor(p => p.EmployeeCode).NotEmpty()
+                .WithMessage("Employee Code cannot be empty.");
+
+            RuleFor(p => p.Positionid).NotEqual(Guid.Parse("00000000-0000-0000-0000-000000000000"))
+                .WithMessage("Position has to be choosen");
+
+            RuleFor(p => p.StartDate).NotEmpty()
+                .WithMessage("Start Date has to be choosen");
 
         }
     }

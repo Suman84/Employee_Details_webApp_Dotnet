@@ -13,6 +13,7 @@ namespace Employee_details_webapp.Models
 
         public Guid Employeeid { get; set; }
         public Guid Positionid { get; set; }
+        public string PositionName { get; set; }
 
     }
 }
