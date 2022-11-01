@@ -1,0 +1,31 @@
+﻿@model List<DomainLayer.Models.EmployeeJobHistories>
+@{
+}
+<h2>View or Edit employees job histories!</h2>
+<br />
+<h3>Employee Full name: @ViewBag.fullname </h3>
+<h3>Employee ID: @Model[0].Employeeid</h3>
+<br />
+<table class="table">
+	<thead>
+		<tr>
+			<th>Position Id</th>
+			<th>Employee Job History ID</th>
+			<th>Start Date</th>
+			<th>End Date</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var Employees in Model)
+		{
+			<tr>
+				<td>@Employees.Positionid</td>
+				<td>@Employees.EmployeeJobHistoryid</td>
+				<td>@Employees.StartDate</td>
+				<td>@Employees.EndDate</td>
+				<td><a href="EditEmployee/@Employees.Employeeid">Edit</a></td>
+			</tr>
+		}
+	</tbody>
+</table>

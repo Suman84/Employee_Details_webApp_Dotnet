@@ -1,7 +1,19 @@
-﻿@model Employee_details_webapp.Models.AddViewModel
+﻿@model Employee_details_webapp.Models.EditViewModel
 <h1>Add employee:</h1>
 
 <form method="post" action="AddEmployee" id="employeeform">
+    <div>
+        <label asp-for="Personid" class="form-label" hidden></label>
+        <input type="text" class="form-control" asp-for="Personid" hidden>
+    </div>
+    <div>
+        <label asp-for="Employeeid" class="form-label" hidden></label>
+        <input type="text" class="form-control" asp-for="Employeeid" hidden>
+    </div>
+    <div>
+        <label asp-for="OriginalPositionid" class="form-label" hidden></label>
+        <input type="text" class="form-control" asp-for="OriginalPositionid" hidden>
+    </div>
     <div class="mb-3">
         <label asp-for="FirstName" class="form-label">FirstName</label>
         <input type="text" class="form-control" asp-for="FirstName">
@@ -25,7 +37,7 @@
     <div class="mb-3">
         <label asp-for="Salary" class="form-label">salary</label>
         <input type="text" class="form-control" asp-for="Salary">
-
+        
     </div>
     <div class="mb-3">
         <label asp-for="EmployeeCode" class="form-label">code</label>

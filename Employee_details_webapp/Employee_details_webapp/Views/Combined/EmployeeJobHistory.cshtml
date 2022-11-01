@@ -1,0 +1,32 @@
+﻿@model List<Employee_details_webapp.Models.EmployeeJobHistoriesModel>
+@{
+}
+<h1> Employees</h1>
+<h3>
+	Employee Full name: 
+</h3>
+<table class="table">
+	<thead>
+		<tr>
+			<th>Position Id</th>
+			<th>Employee Id</th>
+			<th>Employee Job History ID</th>
+			<th>Start Date</th>
+			<th>End Date</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var Employees in Model)
+		{
+			<tr>
+				<td>@Employees.Positionid</td>
+				<td>@Employees.Employeeid</td>
+				<td>@Employees.EmployeeJobHistoryid</td>
+				<td>@Employees.StartDate</td>
+				<td>@Employees.EndDate</td>
+				<td><a href="EditEmployee/@Employees.Employeeid">Edit</a> | <a href="EmployeeJobHistoryList/@Employees.Employeeid">Job History</a></td>
+			</tr>
+		}
+	</tbody>
+</table>

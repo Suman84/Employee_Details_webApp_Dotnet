@@ -4,13 +4,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Employee_details_webapp.Models
 {
-	public class AddViewModel
+	public class EditViewModel
 	{
         [Key]
+        public int Id { get; set; }
+
         public Guid Employeeid { get; set; }
         
         public Guid Personid { get; set; }
         
+        public Guid OriginalPositionid { get; set; }
         public Guid Positionid { get; set; }
 
         public int Salary { get; set; }

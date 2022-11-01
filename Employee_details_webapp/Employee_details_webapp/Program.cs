@@ -5,11 +5,21 @@ using RepositoryLayer.RepositoryPattern.Interfaces;
 using RepositoryLayer.RepositoryPattern;
 using ServiceLayer.Interfaces;
 using ServiceLayer.Services;
+using FluentValidation.AspNetCore;
+using Employee_details_webapp.Models.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddFluentValidation(x =>
+{
+    x.DisableDataAnnotationsValidation = true;
+    x.ImplicitlyValidateChildProperties = true;
+    x.RegisterValidatorsFromAssemblyContaining<EmployeeValidator>();
+});
+
 
 builder.Services.AddDbContext<EmployeeDbContext>(options =>
 options.UseNpgsql(builder.Configuration.GetConnectionString("WebAppConnectionString")));

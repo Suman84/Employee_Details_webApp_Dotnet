@@ -24,14 +24,13 @@ namespace Employee_details_webapp.Controllers
         [HttpGet]
         public IActionResult AllPositionList()
         {
-            var data = _positionService.GetAllPositions().ToList();
-            return View(data);
+            return View();
         }
 
         [HttpGet]
         public IActionResult AddPosition()
         {
-            ViewBag.data = _positionService.GetAllPositions().ToList();
+            ViewBag.positions = _positionService.GetAllPositions().ToList();
             return View();
         }
 

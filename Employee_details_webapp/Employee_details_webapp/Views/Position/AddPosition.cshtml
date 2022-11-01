@@ -11,11 +11,11 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (var Positions in ViewBag.data)
+		@foreach (var Position in ViewBag.positions)
 		{
 			<tr>
-				<td>@Positions.Positionid</td>
-				<td>@Positions.PositionName</td>
+				<td>@Position.Positionid</td>
+				<td>@Position.PositionName</td>
 				<td><a href="">Delete</a></td>
 			</tr>
 		}
