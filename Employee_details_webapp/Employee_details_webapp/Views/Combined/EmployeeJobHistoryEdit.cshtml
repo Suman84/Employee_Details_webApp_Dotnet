@@ -1,0 +1,55 @@
+﻿@model EmployeeJobHistoriesModel
+@{
+}
+<h2>View or Edit employees job histories!</h2>
+<br />
+<h3>Employee Full name: @ViewBag.fullname </h3>
+<h3>Employee ID: @ViewBag.jobHistoryList[0].Employeeid</h3>
+<br />
+<table class="table">
+	<thead>
+		<tr>
+			<th>Job History Id</th>
+			<th>Position Name</th>
+			<th>Start Date</th>
+			<th>End Date</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var history in ViewBag.jobHistoryList)
+		{
+			<tr>
+				<td>@history.EmployeeJobHistoryid</td>
+				<td>@history.PositionName</td>
+				<td>@history.StartDate</td>
+				<td>@history.EndDate</td>
+				<td><a href="@history.Employeeid/@history.EmployeeJobHistoryid ">Edit</a></td>
+			</tr>
+		}
+	</tbody>
+</table>
+<br />
+<form method="post"  id="employeeform">
+	For position = @Model.PositionName
+
+	<div class="row">
+
+		<div class="col">
+			<label asp-for="StartDate" class="form-label">Original Start Date: @Model.StartDate</label>
+			<input type="date" class="form-control" asp-for="StartDate" placeholder="StartDate">
+		</div>
+		<div class="col">
+			<label asp-for="EndDate" class="form-label">Original End Date: @Model.EndDate</label>
+			<input type="date" class="form-control" asp-for="EndDate">
+		</div>
+		
+			<label asp-for="PositionName" class="form-label" hidden></label>
+			<input type="date" class="form-control" asp-for="StartDate" hidden>
+		
+		<div class="col">
+			<br />
+			<button type="submit" class="btn btn-primary">Change</button>
+		</div>
+	</div>
+</form>
