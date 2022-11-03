@@ -103,8 +103,8 @@ namespace Employee_details_webapp.Controllers
                 EmployeeJobHistoryid = Guid.NewGuid(),
                 Employeeid = employee.Employeeid,
                 Positionid = addRequest.Positionid,
-                StartDate = DateOnly.FromDateTime(employee.StartDate),
-                EndDate = DateOnly.FromDateTime(employee.EndDate)
+                StartDate = employee.StartDate,
+                EndDate = employee.EndDate
             };
 
             ValidationResult result = _validator.Validate(addRequest);
@@ -178,8 +178,8 @@ namespace Employee_details_webapp.Controllers
                 EmployeeJobHistoryid = Guid.NewGuid(),
                 Employeeid = editViewModel.Employeeid,
                 Positionid = editViewModel.Positionid,
-                StartDate = DateOnly.FromDateTime(editViewModel.StartDate),
-                EndDate = DateOnly.FromDateTime(editViewModel.EndDate)
+                StartDate = editViewModel.StartDate,
+                EndDate = editViewModel.EndDate
             };
 
             _peopleService.UpdatePeople(people);
@@ -215,8 +215,8 @@ namespace Employee_details_webapp.Controllers
                         EmployeeJobHistoryid = employeeJobHistory.EmployeeJobHistoryid,
                         Employeeid = employeeJobHistory.Employeeid,
                         Positionid = employeeJobHistory.Positionid,
-                        StartDate = employeeJobHistory.StartDate,
-                        EndDate = employeeJobHistory.EndDate,
+                        StartDate = DateOnly.FromDateTime(employeeJobHistory.StartDate),
+                        EndDate = DateOnly.FromDateTime(employeeJobHistory.EndDate),
                         PositionName = tempPosition.PositionName,
                     };
 
@@ -251,8 +251,8 @@ namespace Employee_details_webapp.Controllers
                         EmployeeJobHistoryid = employeeJobHistory.EmployeeJobHistoryid,
                         Employeeid = employeeJobHistory.Employeeid,
                         Positionid = employeeJobHistory.Positionid,
-                        StartDate = employeeJobHistory.StartDate,
-                        EndDate = employeeJobHistory.EndDate,
+                        StartDate = DateOnly.FromDateTime(employeeJobHistory.StartDate),
+                        EndDate = DateOnly.FromDateTime(employeeJobHistory.EndDate),
                         PositionName = tempPosition.PositionName,
                     };
 
@@ -263,7 +263,7 @@ namespace Employee_details_webapp.Controllers
             ViewBag.jobHistoryList = employeeJobHistoryList;
 
             var tempPosition2 = _positionService.GetPosition(employeeJobHistory.Positionid);
-            EmployeeJobHistoriesModel employeeJobHistoryModel2 = new()
+            EmployeeJobHistoriesModeledit employeeJobHistoryModeledit = new()
             {
                 EmployeeJobHistoryid = employeeJobHistory.EmployeeJobHistoryid,
                 Employeeid = employeeJobHistory.Employeeid,
@@ -273,14 +273,29 @@ namespace Employee_details_webapp.Controllers
                 PositionName = tempPosition2.PositionName,
             };
 
-            return View(employeeJobHistoryModel2);
+            return View(employeeJobHistoryModeledit);
         }
 
         [HttpPost("/Combined/EmployeeJobHistoryEdit/{Id}/{Id2}")]
-        public IActionResult EmployeeJobHistoryEdit(EmployeeJobHistoriesModel employeeJobHistory)
+        public IActionResult EmployeeJobHistoryEdit(EmployeeJobHistoriesModeledit employeeJobHistoryedit)
         {
-            return RedirectToAction("../");
-            return Redirect(Url.Action("EmployeeJobHistoryList/{Id}", "Combined") + "");
+            var Id = employeeJobHistoryedit.Employeeid;
+            EmployeeJobHistories employeeJobHistories = new()
+            {
+                EmployeeJobHistoryid = employeeJobHistoryedit.EmployeeJobHistoryid,
+                Employeeid = employeeJobHistoryedit.Employeeid,
+                Positionid = employeeJobHistoryedit.Positionid,
+                StartDate = employeeJobHistoryedit.StartDate,
+                EndDate = employeeJobHistoryedit.EndDate
+            };
+            _employeeJobHistoryService.UpdateEmployeeJobHistory(employeeJobHistories);
+
+
+
+
+
+
+            return Redirect(Url.Action("EmployeeJobHistoryList/" + Id, "Combined").Replace("%2F", "/") + "");
         }
     }
 }

@@ -12,8 +12,8 @@ namespace DomainLayer.Models
     {
         [Key]
         public Guid EmployeeJobHistoryid { get; set; }
-        public DateOnly StartDate { get; set; } = new DateOnly();
-        public DateOnly EndDate { get; set; } = new DateOnly();
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         public Guid Employeeid { get; set; }
         public Guid Positionid { get; set; }

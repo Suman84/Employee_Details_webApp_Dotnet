@@ -14,7 +14,7 @@ namespace Employee_details_webapp.Models
         public Guid Positionid { get; set; }
 
         public int Salary { get; set; }
-        public DateTime StartDate { get; set; }
+        public DateTime StartDate { get; set; } = DateTime.Now;
         public DateTime EndDate { get; set; } = DateTime.MaxValue;
         public int EmployeeCode { get; set; }
         public Boolean ISDisabled { get; set; } = false;

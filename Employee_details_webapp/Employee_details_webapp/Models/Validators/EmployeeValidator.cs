@@ -43,9 +43,6 @@ namespace Employee_details_webapp.Models.Validators
             RuleFor(p => p.Positionid).NotEqual(Guid.Parse("00000000-0000-0000-0000-000000000000"))
                 .WithMessage("Position has to be choosen");
 
-            RuleFor(p => p.StartDate).NotEmpty()
-                .WithMessage("Start Date has to be choosen");
-
         }
     }
 }

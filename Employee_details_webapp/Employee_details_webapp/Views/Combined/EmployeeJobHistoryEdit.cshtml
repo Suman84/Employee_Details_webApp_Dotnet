@@ -1,4 +1,4 @@
-﻿@model EmployeeJobHistoriesModel
+﻿@model EmployeeJobHistoriesModeledit
 @{
 }
 <h2>View or Edit employees job histories!</h2>
@@ -36,16 +36,20 @@
 	<div class="row">
 
 		<div class="col">
-			<label asp-for="StartDate" class="form-label">Original Start Date: @Model.StartDate</label>
-			<input type="date" class="form-control" asp-for="StartDate" placeholder="StartDate">
+			<label asp-for="Employeeid" class="form-label">Original Start Date: @DateOnly.FromDateTime(Model.StartDate)</label>
+			<input type="date" class="form-control" asp-for="StartDate" >
 		</div>
 		<div class="col">
-			<label asp-for="EndDate" class="form-label">Original End Date: @Model.EndDate</label>
+			<label asp-for="Employeeid" class="form-label">Original End Date: @DateOnly.FromDateTime(Model.EndDate)</label>
 			<input type="date" class="form-control" asp-for="EndDate">
 		</div>
 		
-			<label asp-for="PositionName" class="form-label" hidden></label>
-			<input type="date" class="form-control" asp-for="StartDate" hidden>
+			<label asp-for="EmployeeJobHistoryid" class="form-label" hidden></label>
+		<input type="text" class="form-control" asp-for="EmployeeJobHistoryid" hidden>
+			<label asp-for="Employeeid" class="form-label" hidden></label>
+			<input type="text" class="form-control" asp-for="Employeeid" hidden>
+		<label asp-for="Positionid" class="form-label" hidden></label>
+		<input type="text" class="form-control" asp-for="Positionid" hidden>
 		
 		<div class="col">
 			<br />
