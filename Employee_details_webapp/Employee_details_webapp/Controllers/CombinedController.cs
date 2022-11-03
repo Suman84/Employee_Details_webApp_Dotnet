@@ -18,15 +18,17 @@ namespace Employee_details_webapp.Controllers
         private readonly IEmployeeService _employeeService;
         private readonly IEmployeeJobHistoryService _employeeJobHistoryService;
         private IValidator<AddViewModel> _validator;
+        private IValidator<EditViewModel> _editValidator;
 
         public CombinedController(IPositionService positionService, IPeopleService peopleService, IEmployeeService employeeService,
-            IEmployeeJobHistoryService employeeJobHistoryService, IValidator<AddViewModel> validator)
+            IEmployeeJobHistoryService employeeJobHistoryService, IValidator<AddViewModel> validator, IValidator<EditViewModel> editValidator)
         {
             _positionService = positionService;
             _peopleService = peopleService;
             _employeeService = employeeService;
             _employeeJobHistoryService = employeeJobHistoryService;
             _validator = validator;
+            _editValidator = editValidator;
         }
 
         public IActionResult Index()
@@ -113,7 +115,6 @@ namespace Employee_details_webapp.Controllers
                 _peopleService.InsertPeople(people);
                 _employeeService.InsertEmployee(employee);
                 _employeeJobHistoryService.InsertEmployeeJobHistory(employeeJobHistory);
-
                 return RedirectToAction("AllEmployeesList");
             }
             else
@@ -121,7 +122,6 @@ namespace Employee_details_webapp.Controllers
                 //return BadRequest(result.Errors.Select(s => s.ErrorMessage).ToList());
                 return View();
             }
-
         }
 
         [HttpGet]
@@ -146,7 +146,8 @@ namespace Employee_details_webapp.Controllers
                 Salary = employee.Salary,
                 EmployeeCode = employee.EmployeeCode,
                 StartDate = employee.StartDate,
-                EndDate = employee.EndDate
+                EndDate = employee.EndDate,
+                OriginalPositionid = employee.Positionid
             };
             return View(editViewModel);
         }
@@ -154,6 +155,8 @@ namespace Employee_details_webapp.Controllers
         [HttpPost]
         public IActionResult EditEmployee(EditViewModel editViewModel)
         {
+            ViewBag.positions = _positionService.GetAllPositions().ToList();
+
             var people = new People()
             {
                 Personid = editViewModel.Personid,
@@ -181,14 +184,25 @@ namespace Employee_details_webapp.Controllers
                 StartDate = editViewModel.StartDate,
                 EndDate = editViewModel.EndDate
             };
+            
+            ValidationResult result = _editValidator.Validate(editViewModel);
 
-            _peopleService.UpdatePeople(people);
-            _employeeService.UpdateEmployee(employee);
-
-            if (editViewModel.Positionid != editViewModel.OriginalPositionid)
+            if (result.IsValid)
             {
-                _employeeJobHistoryService.InsertEmployeeJobHistory(employeeJobHistory);
+                _peopleService.UpdatePeople(people);
+                _employeeService.UpdateEmployee(employee);
+                if (editViewModel.Positionid != editViewModel.OriginalPositionid)
+                {
+                    _employeeJobHistoryService.InsertEmployeeJobHistory(employeeJobHistory);
+                }
+                return RedirectToAction("AllEmployeesList");
             }
+            else
+            {
+                //return BadRequest(result.Errors.Select(s => s.ErrorMessage).ToList());
+                return View(editViewModel);
+            }
+           
 
             //return RedirectToAction("AllEmployeesList");
             return Redirect(Url.Action("AllEmployeesList", "Combined") + "");
