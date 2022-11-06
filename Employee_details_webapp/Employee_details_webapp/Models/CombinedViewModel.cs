@@ -12,10 +12,11 @@ namespace Employee_details_webapp.Models
         public string? Address { get; set; }
         public string? Email { get; set; }
 
+        public string FullName { get; set; }
         public Guid Employeeid { get; set; }
         public int Salary { get; set; } = 0;
-        public DateOnly StartDate { get; set; }
-        public DateOnly EndDate { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         public int EmployeeCode { get; set; } = 0;
         public Boolean ISDisabled { get; set; } = false;
         public Guid Personid { get; set; }

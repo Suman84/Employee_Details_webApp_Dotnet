@@ -2,37 +2,79 @@
 @{
 }
 <h1> Employees</h1>
-<link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+<link href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="table-responsive">
+        <table id="myTable" class="table table-bordered">
+            <thead>
+                <tr>
+					<th>Code</th>
+					<th>Full Name</th>
+					<th>Email</th>
+					<th>Address</th>
+					<th>Salary</th>
+					<th>Position</th>
+					<th>Start Date</th>
+					<th>End Date</th>
+					<th></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
 
 
-<table class="display" id="table">
-	<thead>
-		<tr>
-			<th>Code</th>
-			<th>Full Name</th>
-			<th>Email</th>
-			<th>Address</th>
-			<th>Salary</th>
-			<th>Position</th>
-			<th>Start Date</th>
-			<th>End Date</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach(var Employees in Model)
-		{
-				<tr>
-				<td>@Employees.EmployeeCode</td>
-				<td>@Employees.FirstName @Employees.MiddleName @Employees.LastName</td>
-				<td>@Employees.Email</td>
-				<td>@Employees.Address</td>
-				<td>@Employees.Salary</td>
-				<td>@Employees.PositionName</td>
-				<td>@Employees.StartDate</td>
-				<td>@Employees.EndDate</td>
-				<td><a href="EditEmployee/@Employees.Employeeid">Edit</a> | <a href="EmployeeJobHistoryList/@Employees.Employeeid">Job History</a></td>
-				</tr>
-		}
-	</tbody>
-</table>
+@section scripts{
+
+    <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script >
+        $(document).ready(function () {
+            $('#myTable').DataTable(
+                {
+                    ajax: {
+                        url: "Combined/AllEmployeesList2",
+                        type: "POST", 
+                    },
+                    processing: true,
+                    serverSide: true,
+                    filter: true,
+
+                    //Colum setup
+                    columns: [
+						{ data: "employeeCode", name: "EmployeeCode" },
+                        { data: "fullName", name: "FullName" },
+                        { data: "email", name: "Email" },
+                        { data: "address", name: "Address" },
+                        { data: "salary", name: "Salary" },
+						{ data: "positionName", name: "PositionName" },
+                        { data: "startDate", name: "StartDate" },
+                        { data: "endDate", name: "EndDate" },
+                        
+                       
+                        //{
+                        //     "data" :"employeeid" , 
+                        //     "render": function (data, row) {
+                        //      return `<a  href="/api/Report/GetStatusDetail?id=${data}" class 'btn btn-success text-white' 
+                        //      style='cursor:pointer'; asp-controller="Combined" asp-action="AllEmployeesList2"  
+                        //     asp-route-pid="${data}"   >Details</a>`;   
+
+                        //},
+                    ],
+                }
+            );
+        });
+    </script>
+
+    
+
+    <script>
+        function edit(rowContext) {
+    if (table) {
+        var data = table.row($(rowContext).parents("tr")).data();
+        alert("Example showing row edit with id: " + data["id"] + ", name: " + data["name"]);
+    }
+}
+    </script>
+}
