@@ -112,10 +112,8 @@ namespace Employee_details_webapp.Controllers
             if (!string.IsNullOrEmpty(sortColumn) && !string.IsNullOrEmpty(sortColumnDirection))
                 combinedViewModelList2 = combinedViewModelList2.OrderBy(sortColumn + " " + sortColumnDirection).AsQueryable();
 
-
             //pagination
             var empList = combinedViewModelList2.Skip(skip).Take(pageSize).ToList();
-
 
             var jsonData = new { draw = draw, recordsFiltered = filteredRecords, recordsTotal = recordsTotal, data = empList };
            // return Ok(jsonData);
@@ -204,7 +202,8 @@ namespace Employee_details_webapp.Controllers
                 EmployeeCode = employee.EmployeeCode,
                 StartDate = employee.StartDate,
                 EndDate = employee.EndDate,
-                OriginalPositionid = employee.Positionid
+                OriginalPositionid = employee.Positionid,
+                OriginalEmail = person.Email
             };
             return View(editViewModel);
         }
@@ -360,11 +359,6 @@ namespace Employee_details_webapp.Controllers
                 EndDate = employeeJobHistoryedit.EndDate
             };
             _employeeJobHistoryService.UpdateEmployeeJobHistory(employeeJobHistories);
-
-
-
-
-
 
             return Redirect(Url.Action("EmployeeJobHistoryList/" + Id, "Combined").Replace("%2F", "/") + "");
         }

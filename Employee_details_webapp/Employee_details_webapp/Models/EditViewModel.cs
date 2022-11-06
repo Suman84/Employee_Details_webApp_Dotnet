@@ -27,6 +27,7 @@ namespace Employee_details_webapp.Models
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public string Address { get; set; }
+        public string OriginalEmail { get; set; }
         public string Email { get; set; }
 
 
