@@ -12,11 +12,11 @@ namespace Employee_details_webapp.Models.Validators
 {
     public class EmployeeValidator : AbstractValidator<AddViewModel>
     {
-        private readonly IPeopleService _peopleService;
-        public EmployeeValidator(IPeopleService peopleService)
+        private readonly IPeopleService _peopleService2;
+        public EmployeeValidator(IPeopleService peopleService2)
         {
-            _peopleService = peopleService;
-            var people = _peopleService.GetAllPeople().ToList();
+            _peopleService2 = peopleService2;
+            var people = _peopleService2.GetAllPeople().ToList();
 
             RuleFor(p => p.FirstName).NotEmpty()
                 .WithMessage("First Name cannot be empty")

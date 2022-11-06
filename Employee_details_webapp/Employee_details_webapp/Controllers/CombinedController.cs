@@ -58,26 +58,30 @@ namespace Employee_details_webapp.Controllers
 
             employees.ForEach(employee =>
             {
-                People people = _peopleService.GetPeople(employee.Personid);
-                Positions position = _positionService.GetPosition(employee.Positionid);
-
-                CombinedViewModel combinedViewModel = new()
+                if(employee.ISDisabled == false)
                 {
-                    FirstName = people.FirstName,
-                    MiddleName = people.MiddleName,
-                    LastName = people.LastName,
-                    FullName = people.FirstName + " " + people.MiddleName + " " + people.LastName,
-                    Address = people.Address,
-                    Email = people.Email,
-                    Employeeid = employee.Employeeid,
-                    EmployeeCode = employee.EmployeeCode,
-                    Salary = employee.Salary,
-                    StartDate = employee.StartDate,
-                    EndDate = employee.EndDate,
-                    ISDisabled = employee.ISDisabled,
-                    PositionName = position.PositionName
-                };
-                combinedViewModelList.Add(combinedViewModel);
+                    People people = _peopleService.GetPeople(employee.Personid);
+                    Positions position = _positionService.GetPosition(employee.Positionid);
+
+                    CombinedViewModel combinedViewModel = new()
+                    {
+                        FirstName = people.FirstName,
+                        MiddleName = people.MiddleName,
+                        LastName = people.LastName,
+                        FullName = people.FirstName + " " + people.MiddleName + " " + people.LastName,
+                        Address = people.Address,
+                        Email = people.Email,
+                        Employeeid = employee.Employeeid,
+                        EmployeeCode = employee.EmployeeCode,
+                        Salary = employee.Salary,
+                        StartDate = employee.StartDate,
+                        EndDate = employee.EndDate,
+                        ISDisabled = employee.ISDisabled,
+                        PositionName = position.PositionName
+                    };
+                    combinedViewModelList.Add(combinedViewModel);
+                }
+                
             });
             var combinedViewModelList2 = combinedViewModelList.AsQueryable();
 
@@ -261,6 +265,24 @@ namespace Employee_details_webapp.Controllers
            
 
             //return RedirectToAction("AllEmployeesList");
+            return Redirect(Url.Action("AllEmployeesList", "Combined") + "");
+        }
+
+        [HttpPost]
+        public IActionResult Delete(EditViewModel editViewModel)
+        {
+            var employee = new Employees()
+            {
+                Employeeid = editViewModel.Employeeid,
+                EmployeeCode = editViewModel.EmployeeCode,
+                StartDate = editViewModel.StartDate,
+                EndDate = editViewModel.EndDate,
+                Salary = editViewModel.Salary,
+                Personid = editViewModel.Personid,
+                Positionid = editViewModel.Positionid,
+                ISDisabled = true
+            };
+            _employeeService.UpdateEmployee(employee);
             return Redirect(Url.Action("AllEmployeesList", "Combined") + "");
         }
 
