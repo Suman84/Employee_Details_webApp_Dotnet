@@ -19,6 +19,7 @@
 					<th>Start Date</th>
 					<th>End Date</th>
 					<th></th>
+                    <th></th>
                 </tr>
             </thead>
         </table>
@@ -52,22 +53,19 @@
                         { data: "startDate", name: "StartDate" },
                         { data: "endDate", name: "EndDate" },
                         
-                       
-                        //{
-                        //     "data" :"employeeid" , 
-                        //     "render": function (data, row) {
-                        //      return `<a  href="/api/Report/GetStatusDetail?id=${data}" class 'btn btn-success text-white' 
-                        //      style='cursor:pointer'; asp-controller="Combined" asp-action="AllEmployeesList2"  
-                        //     asp-route-pid="${data}"   >Details</a>`;   
-
-                        //},
+                        {
+                            "render": function (data, type, row) { 
+                                return '<a class="btn btn-info" href="/Combined/EditEmployee/' + row.employeeid + '">Edit</a>'; }
+                        },
+                        {
+                            "render": function (data, type, row) { 
+                                return '<a class="btn btn-info" href="/Combined/EmployeeJobHistoryList/' + row.employeeid + '">History</a>'; }
+                        },
                     ],
                 }
             );
         });
     </script>
-
-    
 
     <script>
         function edit(rowContext) {

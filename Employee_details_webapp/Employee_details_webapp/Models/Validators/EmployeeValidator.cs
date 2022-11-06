@@ -6,13 +6,18 @@ using System.Threading.Tasks;
 using DomainLayer.Models;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using ServiceLayer.Interfaces;
 
 namespace Employee_details_webapp.Models.Validators
 {
     public class EmployeeValidator : AbstractValidator<AddViewModel>
     {
-        public EmployeeValidator()
+        private readonly IPeopleService _peopleService;
+        public EmployeeValidator(IPeopleService peopleService)
         {
+            _peopleService = peopleService;
+            var people = _peopleService.GetAllPeople().ToList();
+
             RuleFor(p => p.FirstName).NotEmpty()
                 .WithMessage("First Name cannot be empty")
                 .Matches("^[a-zA-Z]+$")
@@ -31,7 +36,14 @@ namespace Employee_details_webapp.Models.Validators
                 .EmailAddress()
                 .WithMessage("Email must in in email format");
 
-            RuleFor(p => p.Address).NotEmpty()
+
+            people.ForEach(person =>
+            {
+                RuleFor(p => p.Email).NotEqual(person.Email).WithMessage("Same Email already exists");
+            });
+
+
+           RuleFor(p => p.Address).NotEmpty()
                 .WithMessage("Address cannot be empty.");
 
             RuleFor(p => p.Salary).NotEmpty()
