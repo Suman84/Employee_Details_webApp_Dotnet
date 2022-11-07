@@ -30,6 +30,7 @@ namespace Employee_details_webapp.Models
         public string OriginalEmail { get; set; }
         public string Email { get; set; }
 
+        public List<string>? EmailList { get; set; } = new List<string>();
 
     }
 }

@@ -25,8 +25,8 @@ namespace Employee_details_webapp.Models
         public string LastName { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }
-
         public string OriginalEmail { get; set; }
+        public List<string>? EmailList { get; set; } = new List<string>();
 
 
     }

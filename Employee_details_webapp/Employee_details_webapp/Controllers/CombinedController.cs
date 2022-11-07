@@ -11,6 +11,8 @@ using ServiceLayer.Services;
 using Microsoft.AspNetCore.Http.Features;
 using System.Linq;
 using System.Linq.Dynamic.Core;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Query.ExpressionTranslators.Internal;
+using Employee_details_webapp.Models.Validators;
 
 namespace Employee_details_webapp.Controllers
 {
@@ -21,18 +23,14 @@ namespace Employee_details_webapp.Controllers
         private readonly IPeopleService _peopleService;
         private readonly IEmployeeService _employeeService;
         private readonly IEmployeeJobHistoryService _employeeJobHistoryService;
-        private IValidator<AddViewModel> _validator;
-        private IValidator<EditViewModel> _editValidator;
 
         public CombinedController(IPositionService positionService, IPeopleService peopleService, IEmployeeService employeeService,
-            IEmployeeJobHistoryService employeeJobHistoryService, IValidator<AddViewModel> validator, IValidator<EditViewModel> editValidator)
+            IEmployeeJobHistoryService employeeJobHistoryService)
         {
             _positionService = positionService;
             _peopleService = peopleService;
             _employeeService = employeeService;
             _employeeJobHistoryService = employeeJobHistoryService;
-            _validator = validator;
-            _editValidator = editValidator;
         }
 
         public IActionResult Index()
@@ -101,7 +99,9 @@ namespace Employee_details_webapp.Controllers
             {
                 combinedViewModelList = combinedViewModelList2.Where(x =>
                   x.FirstName.ToLower().Contains(searchValue.ToLower())
+                  || x.MiddleName.ToLower().Contains(searchValue.ToLower())
                   || x.LastName.ToLower().Contains(searchValue.ToLower())
+                  || x.Email.ToLower().Contains(searchValue.ToLower())
                   || x.Address.ToLower().Contains(searchValue.ToLower())
                   || x.Salary.ToString().ToLower().Contains(searchValue.ToLower())
 
@@ -128,11 +128,18 @@ namespace Employee_details_webapp.Controllers
         public IActionResult AddEmployee()
         {
             ViewBag.positions = _positionService.GetAllPositions().ToList();
+
             AddViewModel addviewmodel = new()
             {
+
                 StartDate = DateTime.Now,
                 EndDate = DateTime.MaxValue
             };
+            var peopleList = _peopleService.GetAllPeople().ToList();
+            peopleList.ForEach(person =>
+            {
+                addviewmodel.EmailList.Add(person.Email);
+            });
             return View(addviewmodel);
         }
 
@@ -168,6 +175,20 @@ namespace Employee_details_webapp.Controllers
                 EndDate = employee.EndDate
             };
 
+            addRequest.OriginalEmail = people.Email;
+
+            var peopleList = _peopleService.GetAllPeople().ToList();
+            peopleList.ForEach(person =>
+            {
+                addRequest.EmailList.Add(person.Email);
+            });
+            if(addRequest.EmailList.Contains(addRequest.Email))
+            {
+                Guid Npgsqlas = Guid.NewGuid();
+            }
+
+            EmployeeValidator _validator = new();
+
             ValidationResult result = _validator.Validate(addRequest);
             if (result.IsValid)
             {
@@ -179,7 +200,7 @@ namespace Employee_details_webapp.Controllers
             else
             {
                 //return BadRequest(result.Errors.Select(s => s.ErrorMessage).ToList());
-                return View();
+                return View(addRequest);
             }
         }
 
@@ -244,8 +265,8 @@ namespace Employee_details_webapp.Controllers
                 StartDate = editViewModel.StartDate,
                 EndDate = editViewModel.EndDate
             };
-            
-            ValidationResult result = _editValidator.Validate(editViewModel);
+            EditEmployeeValidator _editEmployeeValidator = new EditEmployeeValidator();
+            ValidationResult result = _editEmployeeValidator.Validate(editViewModel);
 
             if (result.IsValid)
             {
@@ -263,7 +284,6 @@ namespace Employee_details_webapp.Controllers
                 return View(editViewModel);
             }
            
-
             //return RedirectToAction("AllEmployeesList");
             return Redirect(Url.Action("AllEmployeesList", "Combined") + "");
         }
@@ -271,15 +291,16 @@ namespace Employee_details_webapp.Controllers
         [HttpPost]
         public IActionResult Delete(EditViewModel editViewModel)
         {
+            var tempEmployee = _employeeService.GetEmployee(editViewModel.Employeeid);
             var employee = new Employees()
             {
-                Employeeid = editViewModel.Employeeid,
-                EmployeeCode = editViewModel.EmployeeCode,
-                StartDate = editViewModel.StartDate,
-                EndDate = editViewModel.EndDate,
-                Salary = editViewModel.Salary,
-                Personid = editViewModel.Personid,
-                Positionid = editViewModel.Positionid,
+                Employeeid = tempEmployee.Employeeid,
+                EmployeeCode = tempEmployee.EmployeeCode,
+                StartDate = tempEmployee.StartDate,
+                EndDate = tempEmployee.EndDate,
+                Salary = tempEmployee.Salary,
+                Personid = tempEmployee.Personid,
+                Positionid = tempEmployee.Positionid,
                 ISDisabled = true
             };
             _employeeService.UpdateEmployee(employee);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using DomainLayer.Models;
@@ -12,11 +13,9 @@ namespace Employee_details_webapp.Models.Validators
 {
     public class EmployeeValidator : AbstractValidator<AddViewModel>
     {
-        private readonly IPeopleService _peopleService2;
-        public EmployeeValidator(IPeopleService peopleService2)
+
+        public EmployeeValidator()
         {
-            _peopleService2 = peopleService2;
-            var people = _peopleService2.GetAllPeople().ToList();
 
             RuleFor(p => p.FirstName).NotEmpty()
                 .WithMessage("First Name cannot be empty")
@@ -35,15 +34,14 @@ namespace Employee_details_webapp.Models.Validators
                 .WithMessage("Email cannot be empty")
                 .EmailAddress()
                 .WithMessage("Email must in in email format");
-
-
-            people.ForEach(person =>
+           
+            When(p => p.EmailList.Contains(p.Email), () =>
             {
-                RuleFor(p => p.Email).NotEqual(person.Email).WithMessage("Same Email already exists");
+                RuleFor(p => p.Email).Length(0,1)
+                .WithMessage("Email already exists");
             });
 
-
-           RuleFor(p => p.Address).NotEmpty()
+            RuleFor(p => p.Address).NotEmpty()
                 .WithMessage("Address cannot be empty.");
 
             RuleFor(p => p.Salary).NotEmpty()
@@ -56,5 +54,10 @@ namespace Employee_details_webapp.Models.Validators
                 .WithMessage("Position has to be choosen");
 
         }
+        private bool IsDuplicate(AddViewModel r)
+        {
+            return r.EmailList.Contains(r.Email);
+        }
+
     }
 }

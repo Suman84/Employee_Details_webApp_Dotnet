@@ -34,8 +34,6 @@ namespace Employee_details_webapp.Models.Validators
                 .WithMessage("Email cannot be empty")
                 .EmailAddress()
                 .WithMessage("Email must in in email format");
-           
-
 
             RuleFor(p => p.Address).NotEmpty()
                 .WithMessage("Address cannot be empty.");

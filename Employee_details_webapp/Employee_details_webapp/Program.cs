@@ -22,7 +22,6 @@ builder.Services.AddFluentValidation(x =>
     x.RegisterValidatorsFromAssemblyContaining<EmployeeValidator>();
 });
 
-
 builder.Services.AddDbContext<EmployeeDbContext>(options =>
 options.UseNpgsql(builder.Configuration.GetConnectionString("WebAppConnectionString")));
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -39,7 +38,7 @@ builder.Services.AddTransient<IPeopleService, PeopleService>();
 builder.Services.AddScoped(typeof(IPositionRepository<>), typeof(PositionRepository<>));
 builder.Services.AddTransient<IPositionService, PositionService>();
 
-builder.Services.AddScoped<IValidator<AddViewModel>, EmployeeValidator>();
+//builder.Services.AddScoped<IValidator<AddViewModel>, EmployeeValidator>();
 
 var app = builder.Build();
 
