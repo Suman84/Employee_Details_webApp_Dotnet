@@ -1,13 +1,16 @@
 ﻿@model List<Employee_details_webapp.Models.CombinedViewModel>
 @{
 }
-<h1> Employees</h1>
+<a class="btn btn-info" href="AddEmployee">Add new employee</a>
+<br />
+<br />
+<h4> Employees</h4>
 
 <link href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet" />
 
 <div class="container">
     <div class="table-responsive">
-        <table id="myTable" class="table table-bordered">
+        <table id="myTable" class="row-border">
             <thead>
                 <tr>
 					<th>Code</th>
@@ -20,6 +23,7 @@
 					<th>End Date</th>
 					<th></th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
         </table>
@@ -29,7 +33,7 @@
 
 @section scripts{
 
-    <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
     <script >
         $(document).ready(function () {
             $('#myTable').DataTable(
@@ -54,12 +58,19 @@
                         { data: "endDate", name: "EndDate" },
                         
                         {
-                            "render": function (data, type, row) { 
-                                return '<a class="btn btn-info" href="/Combined/EditEmployee/' + row.employeeid + '">Edit</a>'; }
+                            "render": function (data, type, row) {
+                                return '<a class="btn btn-warning" href="/Combined/EditEmployee/' + row.employeeid + '">Edit</a>';
+                            }
                         },
                         {
-                            "render": function (data, type, row) { 
-                                return '<a class="btn btn-info" href="/Combined/EmployeeJobHistoryList/' + row.employeeid + '">History</a>'; }
+                            "render": function (data, type, row) {
+                                return '<a class="btn btn-info" href="/Combined/EmployeeJobHistoryList/' + row.employeeid + '">History</a>';
+                            }
+                        },
+                        {
+                            "render": function (data, type, row) {
+                                return '<a class= "btn btn-danger" href="/Combined/EditEmployee/' + row.employeeid + '">Delete</a>';
+                            }
                         },
                     ],
                 }

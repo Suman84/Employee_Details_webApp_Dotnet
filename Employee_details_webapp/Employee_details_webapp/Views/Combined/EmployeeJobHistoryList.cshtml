@@ -1,32 +1,46 @@
 ﻿@model List<EmployeeJobHistoriesModel>
 @{
 }
-<h2>View or Edit employees job histories!</h2>
-<br />
-<h3>Full name: @ViewBag.fullname </h3>
+
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
-<br />
-<table id="myTable2" class="display">
-	<thead>
-		<tr>
-			<th>Job History Id</th>
-			<th>Position Name</th>
-			<th>Start Date</th>
-			<th>End Date</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var history in Model)
-		{
-			<tr>
-				<td>@history.EmployeeJobHistoryid</td>
-				<td>@history.PositionName</td>
-				<td>@history.StartDate</td>
-				<td>@history.EndDate</td>
-				<td><a href="../EmployeeJobHistoryEdit/@history.Employeeid/@history.EmployeeJobHistoryid ">Edit</a></td>
-			</tr>
-		}
-	</tbody>
-</table>
-<br />
+
+<div class="container my-5">
+	<div class="card">
+		<!-- Card header -->
+		<div class="card-header py-4 px-5 bg-light border-0">
+			<h4 class="mb-0 fw-bold">@ViewBag.fullname 's Job history</h4>
+		</div>
+
+		<!-- Card body -->
+		<div class="card-body px-5">
+			<div class="col">
+				<table id="myTable2" class="display">
+					<thead>
+						<tr>
+							<th>Job History Id</th>
+							<th>Position Name</th>
+							<th>Start Date</th>
+							<th>End Date</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var history in Model)
+						{
+							<tr>
+								<td>@history.EmployeeJobHistoryid</td>
+								<td>@history.PositionName</td>
+								<td>@history.StartDate</td>
+								<td>@history.EndDate</td>
+								<td><a href="../EmployeeJobHistoryEdit/@history.Employeeid/@history.EmployeeJobHistoryid ">Edit</a></td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+			

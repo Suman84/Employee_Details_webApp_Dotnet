@@ -1,36 +1,64 @@
 ﻿@model DomainLayer.Models.Positions
 
-<h2> Positions</h2>
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
-<table id="myTable2" class="display">
-	<thead>
-		<tr>
-			<th>Position Code</th>
-			<th>Position Name</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var Position in ViewBag.positions)
-		{
-			<tr>
-				<td>@Position.Positionid</td>
-				<td>@Position.PositionName</td>
-				<td><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Delete</a></td>
-			</tr>
-		}
-	</tbody>
-</table>
 
-<h2>Add Position:</h2>
+<div class="container my-5">
+    <div class="card">
+		<!-- Card header -->
+		<div class="card-header py-4 px-5 bg-light border-0">
+			<h4 class="mb-0 fw-bold">Positions:</h4>
+		</div>
+		<table id="myTable2" class="display">
+			<thead>
+				<tr>
+					<th>Position Code</th>
+					<th>Position Name</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var Position in ViewBag.positions)
+				{
+					<tr>
+						<td>@Position.Positionid</td>
+						<td>@Position.PositionName</td>
+						<td><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Delete</a></td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>
+<div class="container my-5">
+	<div class="card">
+		<form method="post" action="AddPosition" id="employeeform">
 
-<form method="post" action="AddPosition" id="employeeform">
-    <div class="mb-3">
-        <label asp-for="PositionName" class="form-label">Position Name</label>
-        <input type="text" class="form-control" asp-for="PositionName">
-    </div>
-    <div class="mb-3">
-        <button type="submit" class="btn btn-primary">Add</button>
-    </div>
-</form>
+			<!-- Card header -->
+			<div class="card-header py-4 px-5 bg-light border-0">
+				<h5 class="mb-0 fw-bold">Add:</h5>
+			</div>
+			<div class="card-body px-5">
+				<div class="row">
+					<div class="d-flex">
+						<div class="col">
+							<div class="mb-5">
+								<label asp-for="PositionName" class="form-label">Position Name</label>
 
+								<div class="input-group">
+								<input type="text" class="form-control" asp-for="PositionName">
+									<div class="row" style="padding-left: 20px">
+									<button type="submit" class="btn btn-primary">Add</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+								
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+
+	</div>
+</div>
