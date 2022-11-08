@@ -33,16 +33,21 @@ namespace Employee_details_webapp.Controllers
             _employeeJobHistoryService = employeeJobHistoryService;
         }
 
+
         public IActionResult Index()
         {
             return View();
         }
+
+
 
         [HttpGet("Combined/AllEmployeesList")]
         public IActionResult AllEmployeesList()
         {
            return View();
         }
+
+
 
         [HttpPost("Combined/Combined/AllEmployeesList2")]
         public JsonResult AllEmployeesList2()
@@ -95,22 +100,36 @@ namespace Employee_details_webapp.Controllers
             int filteredRecords = 0;
 
             //search data when search value found
+            /* if (!string.IsNullOrEmpty(searchValue))
+            {
+                combinedViewModelList.ForEach(x =>
+                {
+                    if (!(x.FirstName.ToLower().Contains(searchValue.ToLower())
+                        || x.LastName.ToLower().Contains(searchValue.ToLower())
+                        || x.Email.ToLower().Contains(searchValue.ToLower())
+                        || x.Address.ToLower().Contains(searchValue.ToLower())
+                        || x.Salary.ToString().ToLower().Contains(searchValue.ToLower())))
+                    {
+                        combinedViewModelList.Remove(x);
+                    }
+                });
+            }*/
+
+            //search data when search value found
             if (!string.IsNullOrEmpty(searchValue))
             {
-                combinedViewModelList = combinedViewModelList2.Where(x =>
+                combinedViewModelList2 = combinedViewModelList2.Where(x =>
                   x.FirstName.ToLower().Contains(searchValue.ToLower())
-                  || x.MiddleName.ToLower().Contains(searchValue.ToLower())
                   || x.LastName.ToLower().Contains(searchValue.ToLower())
                   || x.Email.ToLower().Contains(searchValue.ToLower())
                   || x.Address.ToLower().Contains(searchValue.ToLower())
                   || x.Salary.ToString().ToLower().Contains(searchValue.ToLower())
 
-                ).ToList();
+                );
             }
-            combinedViewModelList2 = combinedViewModelList.AsQueryable();
 
             //filtered data after search
-            filteredRecords = combinedViewModelList.Count();
+            filteredRecords = combinedViewModelList2.Count();
 
             //sort data
             if (!string.IsNullOrEmpty(sortColumn) && !string.IsNullOrEmpty(sortColumnDirection))
@@ -120,9 +139,12 @@ namespace Employee_details_webapp.Controllers
             var empList = combinedViewModelList2.Skip(skip).Take(pageSize).ToList();
 
             var jsonData = new { draw = draw, recordsFiltered = filteredRecords, recordsTotal = recordsTotal, data = empList };
-           // return Ok(jsonData);
+            // return Ok(jsonData);
             return Json(jsonData);
         }
+
+
+
 
         [HttpGet]
         public IActionResult AddEmployee()
@@ -142,6 +164,10 @@ namespace Employee_details_webapp.Controllers
             });
             return View(addviewmodel);
         }
+
+
+
+
 
         [HttpPost]
         public IActionResult AddEmployee(AddViewModel addRequest)
@@ -182,14 +208,10 @@ namespace Employee_details_webapp.Controllers
             {
                 addRequest.EmailList.Add(person.Email);
             });
-            if(addRequest.EmailList.Contains(addRequest.Email))
-            {
-                Guid Npgsqlas = Guid.NewGuid();
-            }
 
             EmployeeValidator _validator = new();
-
             ValidationResult result = _validator.Validate(addRequest);
+
             if (result.IsValid)
             {
                 _peopleService.InsertPeople(people);
@@ -203,6 +225,9 @@ namespace Employee_details_webapp.Controllers
                 return View(addRequest);
             }
         }
+
+
+
 
         [HttpGet]
         public IActionResult EditEmployee(Guid Id)
@@ -232,6 +257,9 @@ namespace Employee_details_webapp.Controllers
             };
             return View(editViewModel);
         }
+
+
+
 
         [HttpPost]
         public IActionResult EditEmployee(EditViewModel editViewModel)
@@ -265,6 +293,14 @@ namespace Employee_details_webapp.Controllers
                 StartDate = editViewModel.StartDate,
                 EndDate = editViewModel.EndDate
             };
+
+            var peopleList = _peopleService.GetAllPeople().ToList();
+            peopleList.ForEach(person =>
+            {
+                if(editViewModel.OriginalEmail != editViewModel.Email)
+                editViewModel.EmailList.Add(person.Email);
+            });
+
             EditEmployeeValidator _editEmployeeValidator = new EditEmployeeValidator();
             ValidationResult result = _editEmployeeValidator.Validate(editViewModel);
 
@@ -288,6 +324,29 @@ namespace Employee_details_webapp.Controllers
             return Redirect(Url.Action("AllEmployeesList", "Combined") + "");
         }
 
+
+
+        [HttpGet]
+        public IActionResult DeleteEmployee(Guid id)
+        {
+            var tempEmployee = _employeeService.GetEmployee(id);
+            var employee = new Employees()
+            {
+                Employeeid = tempEmployee.Employeeid,
+                EmployeeCode = tempEmployee.EmployeeCode,
+                StartDate = tempEmployee.StartDate,
+                EndDate = tempEmployee.EndDate,
+                Salary = tempEmployee.Salary,
+                Personid = tempEmployee.Personid,
+                Positionid = tempEmployee.Positionid,
+                ISDisabled = true
+            };
+            _employeeService.UpdateEmployee(employee);
+            return Redirect(Url.Action("AllEmployeesList", "Combined") + "");
+        }
+
+
+
         [HttpPost]
         public IActionResult Delete(EditViewModel editViewModel)
         {
@@ -306,6 +365,9 @@ namespace Employee_details_webapp.Controllers
             _employeeService.UpdateEmployee(employee);
             return Redirect(Url.Action("AllEmployeesList", "Combined") + "");
         }
+
+
+
 
         [HttpGet("/Combined/EmployeeJobHistoryList/{Id}")]
         public IActionResult EmployeeJobHistoryList(Guid Id)
@@ -339,6 +401,9 @@ namespace Employee_details_webapp.Controllers
             return View(employeeJobHistoryList);
 
         }
+
+
+
 
         [HttpGet("/Combined/EmployeeJobHistoryEdit/{Id}/{Id2}")]
         public IActionResult EmployeeJobHistoryEdit(Guid Id, Guid Id2)
@@ -388,6 +453,9 @@ namespace Employee_details_webapp.Controllers
 
             return View(employeeJobHistoryModeledit);
         }
+
+
+
 
         [HttpPost("/Combined/EmployeeJobHistoryEdit/{Id}/{Id2}")]
         public IActionResult EmployeeJobHistoryEdit(EmployeeJobHistoriesModeledit employeeJobHistoryedit)

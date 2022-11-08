@@ -8,8 +8,6 @@
 
 <link href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet" />
 
-<div class="container">
-    <div class="table-responsive">
         <table id="myTable" class="row-border">
             <thead>
                 <tr>
@@ -27,8 +25,6 @@
                 </tr>
             </thead>
         </table>
-    </div>
-</div>
 
 
 @section scripts{
@@ -45,7 +41,6 @@
                     processing: true,
                     serverSide: true,
                     filter: true,
-
                     //Colum setup
                     columns: [
 						{ data: "employeeCode", name: "EmployeeCode" },
@@ -69,7 +64,7 @@
                         },
                         {
                             "render": function (data, type, row) {
-                                return '<a class= "btn btn-danger" href="/Combined/EditEmployee/' + row.employeeid + '">Delete</a>';
+                                return '<a class= "btn btn-danger" href="/Combined/DeleteEmployee/' + row.employeeid + '">Delete</a>';
                             }
                         },
                     ],

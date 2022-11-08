@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DomainLayer.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using RepositoryLayer.DataAccess;
 using RepositoryLayer.RepositoryPattern.Interfaces;
 
@@ -52,6 +53,7 @@ namespace RepositoryLayer.RepositoryPattern
             {
                 throw new ArgumentNullException("entity");
             }
+            _employeeDbContext.ChangeTracker.Clear();
             entities.Update(entity);
             _employeeDbContext.SaveChanges();
         }

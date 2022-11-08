@@ -30,16 +30,17 @@ namespace Employee_details_webapp.Models.Validators
                 .Matches("^[a-zA-Z]+$")
                 .WithMessage("Last Name can only contain letters");
 
+            When(p => p.EmailList.Contains(p.Email), () =>
+            {
+                RuleFor(p => p.Email).Null()
+                .WithMessage("Email already exists");
+            });
+
             RuleFor(p => p.Email).NotEmpty()
                 .WithMessage("Email cannot be empty")
                 .EmailAddress()
                 .WithMessage("Email must in in email format");
-           
-            When(p => p.EmailList.Contains(p.Email), () =>
-            {
-                RuleFor(p => p.Email).Length(0,1)
-                .WithMessage("Email already exists");
-            });
+
 
             RuleFor(p => p.Address).NotEmpty()
                 .WithMessage("Address cannot be empty.");
