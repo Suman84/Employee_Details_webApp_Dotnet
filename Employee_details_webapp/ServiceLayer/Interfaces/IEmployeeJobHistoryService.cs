@@ -11,6 +11,7 @@ namespace ServiceLayer.Interfaces
     {
         IEnumerable<EmployeeJobHistories> GetAllEmployeeJobHistories();
         EmployeeJobHistories GetEmployeeJobHistory(Guid id);
+        EmployeeJobHistories GetEmployeeJobHistoryUsingEmployeeid(Guid id);
         void InsertEmployeeJobHistory(EmployeeJobHistories employeeJobHistory);
         void UpdateEmployeeJobHistory(EmployeeJobHistories employeeJobHistory);
         void DeleteEmployeeJobHistory(Guid id);

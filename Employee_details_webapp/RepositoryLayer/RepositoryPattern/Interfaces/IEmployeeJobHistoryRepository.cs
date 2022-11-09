@@ -10,6 +10,7 @@ namespace RepositoryLayer.RepositoryPattern.Interfaces
     {
         IEnumerable<T> GetAll();
         T Get(Guid Id);
+        T GetUsingEmployeeid(Guid Id);
         void Insert(T entity);
         void Update(T entity);
         void Delete(T entity);

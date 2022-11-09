@@ -31,6 +31,11 @@ namespace RepositoryLayer.RepositoryPattern
             return entities.SingleOrDefault(c => c.EmployeeJobHistoryid == Id);
         }
 
+        public T GetUsingEmployeeid(Guid Id)
+        {
+            return entities.Where(x => x.Employeeid == Id).FirstOrDefault();
+        }
+
         public IEnumerable<T> GetAll()
         {
             return entities.AsEnumerable();

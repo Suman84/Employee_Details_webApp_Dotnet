@@ -77,8 +77,8 @@ namespace Employee_details_webapp.Controllers
                         Employeeid = employee.Employeeid,
                         EmployeeCode = employee.EmployeeCode,
                         Salary = employee.Salary,
-                        StartDate = employee.StartDate,
-                        EndDate = employee.EndDate,
+                        StartDate = DateOnly.FromDateTime(employee.StartDate).ToString(),
+                        EndDate = DateOnly.FromDateTime(employee.EndDate).ToString(),
                         ISDisabled = employee.ISDisabled,
                         PositionName = position.PositionName
                     };
@@ -121,10 +121,12 @@ namespace Employee_details_webapp.Controllers
                 combinedViewModelList2 = combinedViewModelList2.Where(x =>
                   x.FirstName.ToLower().Contains(searchValue.ToLower())
                   || x.LastName.ToLower().Contains(searchValue.ToLower())
+                  || x.FullName.ToLower().Contains(searchValue.ToLower())
                   || x.Email.ToLower().Contains(searchValue.ToLower())
                   || x.Address.ToLower().Contains(searchValue.ToLower())
                   || x.Salary.ToString().ToLower().Contains(searchValue.ToLower())
-
+                  || x.PositionName.ToLower().Contains(searchValue.ToLower())
+                  || x.StartDate.ToLower().Contains(searchValue.ToLower())
                 );
             }
 
@@ -151,12 +153,14 @@ namespace Employee_details_webapp.Controllers
         {
             ViewBag.positions = _positionService.GetAllPositions().ToList();
 
+            //Sending suggested date for Start date and End dates
             AddViewModel addviewmodel = new()
             {
-
                 StartDate = DateTime.Now,
                 EndDate = DateTime.MaxValue
             };
+
+            //Making list of email for dublicate email validation
             var peopleList = _peopleService.GetAllPeople().ToList();
             peopleList.ForEach(person =>
             {
@@ -203,6 +207,7 @@ namespace Employee_details_webapp.Controllers
 
             addRequest.OriginalEmail = people.Email;
 
+            //Making list of email for dublicate email validation
             var peopleList = _peopleService.GetAllPeople().ToList();
             peopleList.ForEach(person =>
             {
@@ -233,9 +238,9 @@ namespace Employee_details_webapp.Controllers
         public IActionResult EditEmployee(Guid Id)
         {
             var employee = _employeeService.GetEmployee(Id);
-            //var employeeJobHistory = _employeeJobHistoryService.GetEmployeeJobHistory(Id);
             var person = _peopleService.GetPeople(employee.Personid);
             var position = _positionService.GetPosition(employee.Positionid);
+
             ViewBag.positions = _positionService.GetAllPositions().ToList();
 
             var editViewModel = new EditViewModel()
@@ -255,6 +260,7 @@ namespace Employee_details_webapp.Controllers
                 OriginalPositionid = employee.Positionid,
                 OriginalEmail = person.Email
             };
+           
             return View(editViewModel);
         }
 
@@ -294,6 +300,7 @@ namespace Employee_details_webapp.Controllers
                 EndDate = editViewModel.EndDate
             };
 
+            //Making list of email for dublicate email validation excluding original email
             var peopleList = _peopleService.GetAllPeople().ToList();
             peopleList.ForEach(person =>
             {
@@ -310,6 +317,12 @@ namespace Employee_details_webapp.Controllers
                 _employeeService.UpdateEmployee(employee);
                 if (editViewModel.Positionid != editViewModel.OriginalPositionid)
                 {
+                    var CurrentJobHistory = _employeeJobHistoryService.GetEmployeeJobHistoryUsingEmployeeid(editViewModel.Employeeid);
+                    if (CurrentJobHistory != null)
+                    {
+                        CurrentJobHistory.EndDate = DateTime.Now;
+                        _employeeJobHistoryService.UpdateEmployeeJobHistory(CurrentJobHistory);
+                    }
                     _employeeJobHistoryService.InsertEmployeeJobHistory(employeeJobHistory);
                 }
                 return RedirectToAction("AllEmployeesList");
@@ -319,9 +332,6 @@ namespace Employee_details_webapp.Controllers
                 //return BadRequest(result.Errors.Select(s => s.ErrorMessage).ToList());
                 return View(editViewModel);
             }
-           
-            //return RedirectToAction("AllEmployeesList");
-            return Redirect(Url.Action("AllEmployeesList", "Combined") + "");
         }
 
 
@@ -372,6 +382,7 @@ namespace Employee_details_webapp.Controllers
         [HttpGet("/Combined/EmployeeJobHistoryList/{Id}")]
         public IActionResult EmployeeJobHistoryList(Guid Id)
         {
+            //Filtering and only showing Job Histories that has employee ID same as provided Id
             var employee = _employeeService.GetEmployee(Id);
             var person = _peopleService.GetPeople(employee.Personid);
             ViewBag.fullname = person.FirstName + " " + person.MiddleName + " " + person.LastName;
@@ -408,6 +419,8 @@ namespace Employee_details_webapp.Controllers
         [HttpGet("/Combined/EmployeeJobHistoryEdit/{Id}/{Id2}")]
         public IActionResult EmployeeJobHistoryEdit(Guid Id, Guid Id2)
         {
+            //Filtering and only showing Job Histories that has employee ID same as provided Id
+            //Also giving id2 for returning to page afterwards
             var employee = _employeeService.GetEmployee(Id);
             var person = _peopleService.GetPeople(employee.Personid);
             var employeeJobHistory = _employeeJobHistoryService.GetEmployeeJobHistory(Id2);

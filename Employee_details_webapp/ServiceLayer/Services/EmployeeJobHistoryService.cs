@@ -32,6 +32,11 @@ namespace ServiceLayer.Services
             return _repository.Get(id);
         }
 
+        public EmployeeJobHistories GetEmployeeJobHistoryUsingEmployeeid(Guid id)
+        {
+            return _repository.GetUsingEmployeeid(id);
+        }
+
         public void InsertEmployeeJobHistory(EmployeeJobHistories employeeJobHistory)
         {
             _repository.Insert(employeeJobHistory);
